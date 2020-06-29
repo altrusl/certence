@@ -43,6 +43,12 @@ if (document.querySelector(".exam-view-header")) {
             );        
         });
 
+        if (card.querySelectorAll(".multi-choice-item.correct-hidden").length > 1) {
+            item.multipleChoiceType = "multi";
+        } else {
+            item.multipleChoiceType = "single";
+        }
+
         item.correctAnswer = card.querySelector(".correct-answer").innerText.trim();
         item.correctAnswerDesc = card.querySelector(".answer-description").innerHTML.trim();
 
