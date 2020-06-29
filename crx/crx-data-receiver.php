@@ -2,9 +2,11 @@
 header("Access-Control-Allow-Origin: *");
 
 $data = json_decode(file_get_contents('php://input'));
-// $data = json_decode(file_get_contents(__DIR__ . "/1.json"));
 
-$examDir = __DIR__ . "/certifications/" . $data->certProvider . "/" . $data->examSlug;
+$certProviders = json_decode(file_get_contents(__DIR__ . "/cert-providers.json"), true);
+$data->certProvider = $certProviders[$data->certProviderSlug];
+
+$examDir = __DIR__ . "/certifications/" . $data->certProviderSlug . "/" . $data->examSlug;
 $questionDir = $examDir . "/questions/";
 
 if (!file_exists($questionDir)) {

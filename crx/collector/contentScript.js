@@ -13,7 +13,7 @@ if (document.querySelector(".exam-view-header")) {
         const ind = document.querySelector("title").innerText.indexOf("Exam – ");
         data.certTitle = document.querySelector("title").innerText.substring(0, ind-1);
     }
-    data.certProvider = window.location.href.split("/")[4];
+    data.certProviderSlug = window.location.href.split("/")[4];
     data.examPageUrl = window.location.href;
     data.examSlug = window.location.href.split("/")[5];
     
