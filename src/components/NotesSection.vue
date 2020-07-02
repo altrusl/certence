@@ -45,6 +45,7 @@ import { mapState, mapGetters } from "vuex";
 export default {
 	data() {
 		return {
+			dummyCounter: 0,
 			notesSelected: false,
 			discussionSelected: false
 		};

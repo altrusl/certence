@@ -1,8 +1,21 @@
 <?php
 
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+// $d = file_get_contents(__DIR__ . "/cert-providers.json");
+// $d = json_decode($d);
+// $o = [];
+// foreach($d as $key => $val) {
+//     $oo = [];
+//     $oo["provider"] = $key;
+//     $oo["name"] = $val;
+//     $o[] = $oo;
+// }
+// print_r($o);
+// file_put_contents("1.json", json_encode($o));
+// exit;
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 header("Access-Control-Allow-Origin: *");
 
@@ -35,7 +48,17 @@ if (file_exists(__DIR__ . "/certifications.json")) {
     $certs = [];
 }
 
-$certs[$data->examSlug] = $data;
+for ($i=0; $i < count($certs); $i++) { 
+    if ($certs[$i]["certProviderSlug"] == $data->certProviderSlug &&
+        $certs[$i]["examSlug"] == $data->examSlug) {
+        $certs[$i] = $data;
+        $data = null;
+        break;
+    }
+}
+if ($data) {
+    $certs[] = $data;
+}
 
 file_put_contents(__DIR__ . "/certifications.json", 
     json_encode($certs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));

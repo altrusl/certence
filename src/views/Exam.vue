@@ -17,7 +17,7 @@
 		<div class="question-navigation">
 			<button @click="previousQuestion">&lt;&lt;</button>
 			<p v-if="question">
-				Question #{{ question.questionNumber }} ({{
+				question #{{ question.questionNumber }} ({{
 					currentQuestionIndex + 1
 				}}
 				out of {{ filteredQuestions.length }})
@@ -283,11 +283,13 @@ export default {
 	/* background: lightgray; */
 }
 .question-navigation p {
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 	color: #444;
 	font-size: 0.8em;
 	letter-spacing: 1px;
 	font-weight: 700;
+	font-family: Comfortaa;
+	font-variant: unicase;
 }
 .answers .selected {
 	color: red;
