@@ -15,10 +15,10 @@ export default new Vuex.Store({
 	},
 	getters: {
 		userTags: state => {
-			return state.certUserData.tags;
+			return state.certUserData.tags || {};
 		},
 		userNotes: state => {
-			return state.certUserData.notes;
+			return state.certUserData.notes || {};
 		}
 	},
 	mutations: {
@@ -78,8 +78,9 @@ export default new Vuex.Store({
 						}
 						return 0;
 					});
-					state.examData.questions.every((q) => {
-						q.questionText = "<p>" + q.questionText.replace("<br>", "</p><p>") + "</p>";
+					state.examData.questions.forEach((q) => {
+						q.questionText = "<p>" + q.questionText
+							.replace(/<br>/g, "</p><p>") + "</p>";
 					});
 					this.commit("LOAD_USER_DATA");
 				});
