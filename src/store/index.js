@@ -2,50 +2,64 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
+/* eslint-disable */
 
 export default new Vuex.Store({
 	state: {
 		examData: {
 			certTitle: ""
 		},
-		userData: {
-			tags: {}
-		},
+		userData: {},
+		certUserData: {},
 		currentQuestionIndex: 2
 	},
 	getters: {
 		userTags: state => {
-			return state.userData.tags;
+			return state.certUserData.tags;
+		},
+		userNotes: state => {
+			return state.certUserData.notes;
 		}
 	},
 	mutations: {
 		// eslint-disable-next-line prettier/prettier
 
 		LOAD_USER_DATA(state) {
-			state.userData = JSON.parse(window.localStorage.getItem("data"));
-			if (!state.userData) {
-				state.userData = {};
-			}
-			if (!state.userData.tags) {
-				state.userData.tags = {};
-			}
+			console.log("loading user data");
+			state.userData = JSON.parse(window.localStorage.getItem("data")) || {};
+			state.userData[state.examData.certProviderSlug] =
+				state.userData[state.examData.certProviderSlug] || {};
+			// eslint-disable-next-line prettier/prettier
+			state.userData[state.examData.certProviderSlug][state.examData.examSlug] =
+				state.userData[state.examData.certProviderSlug][state.examData.examSlug] || {};
+
+			state.certUserData =
+				state.userData[state.examData.certProviderSlug][state.examData.examSlug];
+
+			state.certUserData = state.certUserData || {};
+			state.certUserData.tags = state.certUserData.tags || {};
+			state.certUserData.notes = state.certUserData.notes || {};
+
 			state.examData.questions.forEach(q => {
-				if (state.userData.tags[q.id]) {
-					q.tags = state.userData.tags[q.id];
-				} else {
-					q.tags = [];
-				}
+				q.tags = state.certUserData.tags[q.id] || [];
+				q.notes = state.certUserData.notes[q.id] || [];
 			});
 		},
-		SET_QUESTION_TAGS(state, { tags, qid }) {
-			state.userData.tags[qid] = tags;
+		// eslint-disable-next-line prettier/prettier
+		SET_QUESTION_TAGS(state, {
+			tags,
+			qid
+		}) {
+			state.certUserData.tags[qid] = tags;
 		},
-		SET_CQID(state, { cqid }) {
+		// eslint-disable-next-line prettier/prettier
+		SET_CQID(state, {
+			cqid
+		}) {
 			state.currentQuestionIndex = cqid;
-		},
+		}
 	},
 	actions: {
-		// LOAD_EXAM(context, { provider, exam }) {
 		// eslint-disable-next-line prettier/prettier
 		LOAD_EXAM_DATA({
 			state
@@ -55,6 +69,7 @@ export default new Vuex.Store({
 					state.examData = data;
 					// eslint-disable-next-line prettier/prettier
 					state.examData.questions = state.examData.questions.sort((a, b) => {
+						// eslint-disable-next-line prettier/prettier
 						if (a.questionNumber > b.questionNumber) {
 							return 1;
 						}
@@ -63,10 +78,14 @@ export default new Vuex.Store({
 						}
 						return 0;
 					});
+					state.examData.questions.every((q) => {
+						q.questionText = "<p>" + q.questionText.replace("<br>", "</p><p>") + "</p>";
+					});
 					this.commit("LOAD_USER_DATA");
 				});
 			});
 		},
+
 		// eslint-disable-next-line prettier/prettier
 		SAVE_USER_DATA({
 			state

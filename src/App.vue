@@ -18,12 +18,17 @@
 </template>
 
 <style>
+@font-face {
+	font-family: "Inter";
+	src: url("/assets/fonts/Inter-Regular.woff2");
+}
 #app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
+	font-family: Inter, Helvetica, Arial, sans-serif;
+	/* font-family: Inter, serif; */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	/* text-align: center; */
-	color: #2c3e50;
+	color: #111;
 }
 
 #nav {

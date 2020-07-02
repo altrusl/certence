@@ -8,13 +8,7 @@
 		</div>
 		<div class="notes-body" ref="notesContainer">
 			<div class="notes" v-if="notesSelected">
-				<textarea
-					v-model="
-						userData[examData.certProviderSlug][examData.examSlug]
-							.notes[question.id]
-					"
-					rows="15"
-				></textarea>
+				<textarea v-model="userNotes[question.id]" rows="15"></textarea>
 				<button @click="saveNotes">Save</button>
 			</div>
 			<div class="dicussion-container">
@@ -47,28 +41,24 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 export default {
 	data() {
 		return {
 			notesSelected: false,
-			discussionSelected: false,
-			userData: {}
-			// discussion: ""
+			discussionSelected: false
 		};
 	},
 	name: "NotesSection",
-	// components: {
-	// NotesSection
-	// },
 	props: {
 		question: {
 			type: Object
-		},
-		examData: {
-			type: Object
 		}
 	},
-	computed: {},
+	computed: {
+		...mapState(["examData"]),
+		...mapGetters(["userNotes"])
+	},
 
 	methods: {
 		toggleNotes() {
@@ -78,10 +68,7 @@ export default {
 			}
 		},
 		saveNotes() {
-			window.localStorage.setItem(
-				"userData",
-				JSON.stringify(this.userData)
-			);
+			this.$store.dispatch("SAVE_USER_DATA");
 		},
 		toggleDiscussion() {
 			this.discussionSelected = !this.discussionSelected;
@@ -107,34 +94,6 @@ export default {
 	},
 
 	mounted() {
-		this.userData = JSON.parse(window.localStorage.getItem("userData"));
-
-		if (!this.userData) {
-			this.userData = {};
-		}
-
-		if (!this.userData[this.examData.certProviderSlug]) {
-			this.userData[this.examData.certProviderSlug] = {};
-		}
-		if (
-			!this.userData[this.examData.certProviderSlug][
-				this.examData.examSlug
-			]
-		) {
-			this.userData[this.examData.certProviderSlug][
-				this.examData.examSlug
-			] = {};
-		}
-		if (
-			!this.userData[this.examData.certProviderSlug][
-				this.examData.examSlug
-			].notes
-		) {
-			this.userData[this.examData.certProviderSlug][
-				this.examData.examSlug
-			].notes = {};
-		}
-
 		this.$refs.notesContainer.addEventListener(
 			"mouseup",
 			event => {
@@ -144,27 +103,13 @@ export default {
 				var text = window.getSelection().toString();
 				if (text.length > 0) {
 					if (confirm("Copy selection to the Notes?") == true) {
-						if (
-							!this.userData[this.examData.certProviderSlug][
-								this.examData.examSlug
-							].notes[this.question.id]
-						) {
-							this.userData[this.examData.certProviderSlug][
-								this.examData.examSlug
-							].notes[this.question.id] = "";
-						}
+						this.userNotes[this.question.id] =
+							this.userNotes[this.question.id] || "";
 						let prefix = "";
-						if (
-							this.userData[this.examData.certProviderSlug][
-								this.examData.examSlug
-							].notes[this.question.id] != ""
-						) {
+						if (this.userNotes[this.question.id] != "") {
 							prefix = "\n\n";
 						}
-
-						this.userData[this.examData.certProviderSlug][
-							this.examData.examSlug
-						].notes[this.question.id] += prefix + text;
+						this.userNotes[this.question.id] += prefix + text;
 
 						this.saveNotes();
 					}

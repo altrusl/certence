@@ -15,19 +15,19 @@
 		</div>
 
 		<div class="question-navigation">
-			<button @click="previousQuestion">&lt;&lt; previous</button>
-			<h4 v-if="question">
+			<button @click="previousQuestion">&lt;&lt;</button>
+			<p v-if="question">
 				Question #{{ question.questionNumber }} ({{
 					currentQuestionIndex + 1
 				}}
 				out of {{ filteredQuestions.length }})
-			</h4>
-			<button @click="nextQuestion">next &gt;&gt;</button>
+			</p>
+			<button @click="nextQuestion">&gt;&gt;</button>
 		</div>
 
 		<div class="container" v-if="question">
 			<div class="question-section">
-				<p v-html="question.questionText"></p>
+				<div v-html="question.questionText"></div>
 				<ul class="answers">
 					<li
 						v-for="answer in question.questionAnswers"
@@ -36,7 +36,10 @@
 							selected: showCorrectAnswer && answer.isCorrect
 						}"
 					>
-						{{ answer.letter }} {{ answer.text }}
+						<div class="answer">
+							<div class="answer-letter">{{ answer.letter }}</div>
+							<div class="answer-text">{{ answer.text }}</div>
+						</div>
 					</li>
 				</ul>
 
@@ -55,16 +58,13 @@
 					@tag="addTag"
 				></multiselect>
 			</div>
-			<notes-section
-				ref="notes"
-				:question="question"
-				:examData="examData"
-			/>
+			<notes-section ref="notes" :question="question" />
 		</div>
 	</div>
 </template>
 
 <script>
+import Vue from "vue";
 import NotesSection from "@/components/NotesSection.vue";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapState } from "vuex";
@@ -94,6 +94,7 @@ export default {
 			this.$store.commit("SET_CQID", { cqid: 0 });
 			if (!this.examData || !this.examData.questions) return [];
 			if (this.filterTags.length == 0) return this.examData.questions;
+
 			return this.examData.questions.filter(q => {
 				if (
 					this.filterTags.length == 1 &&
@@ -166,9 +167,15 @@ export default {
 			console.log(this.question.id);
 		},
 		setDiscussion(discussion) {
-			this.filteredQuestions[
-				this.currentQuestionIndex
-			].discussion = discussion;
+			// this.filteredQuestions[
+			// this.currentQuestionIndex
+			// ].discussion = discussion;
+			Vue.set(
+				this.filteredQuestions[this.currentQuestionIndex],
+				"discussion",
+				discussion
+			);
+			Vue.set(this.question, "discussion", discussion);
 		},
 		addTag(newTag) {
 			this.allTags.push(newTag);
@@ -210,11 +217,31 @@ export default {
 	flex-basis: 60%;
 	padding: 10px;
 }
+.question-section >>> p {
+	text-indent: 1.5em;
+	margin-top: 0px;
+	margin-bottom: 0.5em;
+}
+.question-section ul {
+	list-style-type: none;
+	margin-top: 1.6em;
+	padding-left: 0.8em;
+}
 .question-section li {
 	width: fit-content;
 	padding: 0 5px;
 	border: 1px solid transparent;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
+	/* text-indent: -1.5em; */
+}
+.question-section li .answer {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+.question-section .answer-letter {
+	font-weight: bold;
+	margin-right: 10px;
 }
 .container {
 	width: 90%;
@@ -240,9 +267,27 @@ export default {
 	transition: all 0.3s ease-out;
 	text-transform: uppercase;
 	border-radius: 2px;
+
+	font-size: 18px;
+	border: none;
+	padding: 4px 5px;
+	font-weight: bold;
+	margin: 6px 0px;
+	min-width: 3em;
+}
+.question-navigation button:focus {
+	border: none;
+	outline: none;
 }
 .question-navigation button:hover {
-	background: lightgray;
+	/* background: lightgray; */
+}
+.question-navigation p {
+	text-transform: uppercase;
+	color: #444;
+	font-size: 0.8em;
+	letter-spacing: 1px;
+	font-weight: 700;
 }
 .answers .selected {
 	color: red;
