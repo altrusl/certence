@@ -1,5 +1,5 @@
 <template>
-	<div class="hello">
+	<main>
 		<img alt="Vue logo" src="../assets/logo.png" />
 		<h2>exam materials and practice tests for</h2>
 		<h1>IT certifications</h1>
@@ -9,5 +9,13 @@
 		<p>
 			Convenient exam preparation desk
 		</p>
-	</div>
+	</main>
 </template>
+
+<style scoped>
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+</style>
