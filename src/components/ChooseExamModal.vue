@@ -7,6 +7,9 @@
 				v-model="certProvider"
 				:options="certProviders"
 				label="name"
+				selectLabel=""
+				deselectLabel=""
+				:preselectFirst="true"
 			></multiselect>
 
 			<ul class="cert-list">
@@ -17,7 +20,18 @@
 					v-bind:key="item.certTitle"
 					class="cert"
 				>
-					<p class="text">{{ item.certTitle }}</p>
+					<router-link
+						:to="{
+							name: 'Exam',
+							params: {
+								certProvider: item.certProviderSlug,
+								certSlug: item.examSlug
+							}
+						}"
+						class="cert-link"
+					>
+						{{ item.certTitle }}
+					</router-link>
 				</li>
 			</ul>
 
@@ -29,6 +43,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 import Multiselect from "vue-multiselect";
 export default {
 	name: "ChooseExamModal",
@@ -36,7 +51,7 @@ export default {
 	data() {
 		return {
 			certProvider: {},
-			certifications: [],
+			// certifications: [],
 			certificationsByProvider: {}
 		};
 	},
@@ -60,7 +75,6 @@ export default {
 	},
 	computed: {
 		certProviders: function() {
-			this.certifications;
 			return Object.keys(this.certificationsByProvider).map(p => {
 				return {
 					provider: p,
@@ -72,16 +86,22 @@ export default {
 	created() {
 		fetch("certifications.json").then(response => {
 			response.json().then(data => {
-				this.certifications = data;
-				this.certifications.forEach(cert => {
-					this.certificationsByProvider[cert.certProviderSlug] =
-						this.certificationsByProvider[cert.certProviderSlug] ||
-						[];
+				// this.certifications = data;
+				data.forEach(cert => {
+					// this.certificationsByProvider[cert.certProviderSlug] =
+					// this.certificationsByProvider[cert.certProviderSlug] || [];
+					if (!this.certificationsByProvider[cert.certProviderSlug]) {
+						Vue.set(
+							this.certificationsByProvider,
+							cert.certProviderSlug,
+							[]
+						);
+					}
 					this.certificationsByProvider[cert.certProviderSlug].push(
 						cert
 					);
 				});
-				this.dummyCounter++;
+				this.certProvider = this.certProviders[0];
 			});
 		});
 	}
@@ -102,7 +122,7 @@ export default {
 }
 .container {
 	background-color: white;
-	max-width: 70%;
+	max-width: 500px;
 	width: 70%;
 	height: 70%;
 	padding: 1em 3em;
@@ -130,5 +150,20 @@ export default {
 }
 .cert-list {
 	width: 100%;
+}
+.multiselect {
+	border: 1px solid #999;
+	margin-bottom: 20px;
+}
+.cert-link {
+	text-decoration: none;
+	padding-bottom: 10px;
+	display: block;
+	color: #666;
+	font-family: Comfortaa;
+	transition: color 0.3s ease-in-out;
+}
+.cert-link:hover {
+	color: #111;
 }
 </style>

@@ -1,0 +1,32 @@
+[
+    {
+        "certTitle": "AWS Certified Developer Associate",
+        "certProviderSlug": "amazon",
+        "examPageUrl": "https://www.examtopics.com/exams/amazon/aws-certified-developer-associate/view/2/",
+        "examSlug": "aws-certified-developer-associate",
+        "examDesc": "The questions for AWS Certified Developer Associate were last updated at\n                                    June 29, 2020.",
+        "examTitle": "Amazon AWS Certified Developer Associate Exam Actual Questions",
+        "examQuestionCount": "316",
+        "certProvider": "Amazon"
+    },
+    {
+        "certTitle": "AWS Certified Solutions Architect - Associate (SAA-C01)",
+        "certProviderSlug": "amazon",
+        "examPageUrl": "https://www.examtopics.com/exams/amazon/aws-certified-solutions-architect-associate/view/4/",
+        "examSlug": "aws-certified-solutions-architect-associate",
+        "examDesc": "The questions for AWS Certified Solutions Architect - Associate were last updated at\n                                    June 19, 2020.",
+        "examTitle": "Amazon AWS Certified Solutions Architect - Associate Exam Actual Questions",
+        "examQuestionCount": "346",
+        "certProvider": "Amazon"
+    },
+    {
+        "certTitle": "Java SE 8 Programmer",
+        "certProviderSlug": "oracle",
+        "examPageUrl": "https://www.examtopics.com/exams/oracle/1z0-808/view/2/",
+        "examSlug": "1z0-808",
+        "examDesc": "The questions for 1z0-808 were last updated at\n                                    June 29, 2020.",
+        "examTitle": "Oracle 1z0-808 Exam Actual Questions",
+        "examQuestionCount": "142",
+        "certProvider": "Oracle"
+    }
+]

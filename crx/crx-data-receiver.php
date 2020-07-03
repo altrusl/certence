@@ -48,15 +48,16 @@ if (file_exists(__DIR__ . "/certifications.json")) {
     $certs = [];
 }
 
+$duplicate = false;
 for ($i=0; $i < count($certs); $i++) { 
     if ($certs[$i]["certProviderSlug"] == $data->certProviderSlug &&
         $certs[$i]["examSlug"] == $data->examSlug) {
         $certs[$i] = $data;
-        $data = null;
+        $duplicate = true;
         break;
     }
 }
-if ($data) {
+if (!$duplicate) {
     $certs[] = $data;
 }
 
@@ -68,7 +69,7 @@ $d = [];
 foreach (glob($questionDir . "*.json") as $filename) {
     $d[] = json_decode(file_get_contents($filename));
 }
-
+print_r($data);
 $data->questions = $d;
     
 file_put_contents($examDir . "/data.json", 

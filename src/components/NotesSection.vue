@@ -1,7 +1,9 @@
 <template>
 	<div class="notes-section">
 		<div class="button-header">
-			<a @click="toggleNotes" :class="{ active: notesSelected }">Notes</a>
+			<a @click="toggleNotes" :class="{ active: notesSelected }"
+				>My notes</a
+			>
 			<a @click="toggleDiscussion" :class="{ active: discussionSelected }"
 				>Discussion</a
 			>

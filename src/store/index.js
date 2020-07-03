@@ -63,8 +63,14 @@ export default new Vuex.Store({
 		// eslint-disable-next-line prettier/prettier
 		LOAD_EXAM_DATA({
 			state
+		}, {
+			provider,
+			exam
 		}) {
-			fetch("/data.json").then(response => {
+			const url = "https://handspit.com/misc/certifications/" 
+				+ provider + "/" + exam + "/data.json";
+			// const url = "/data.json";
+			return fetch(url).then(response => {
 				response.json().then(data => {
 					state.examData = data;
 					// eslint-disable-next-line prettier/prettier
@@ -79,7 +85,7 @@ export default new Vuex.Store({
 						return 0;
 					});
 					state.examData.questions.forEach((q) => {
-						q.questionText = "<p>" + q.questionText
+						q.questionText = "<p>" + q.questionText.replace(/<img src="/g, "<img src=\"https://www.examtopics.com")
 							.replace(/<br>/g, "</p><p>") + "</p>";
 					});
 					this.commit("LOAD_USER_DATA");

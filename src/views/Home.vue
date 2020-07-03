@@ -21,7 +21,7 @@
 
 		<!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
 		<img alt="Vue logo" src="/assets/images/logo1.png" />
-		<h2>convenient exam preparation desk for</h2>
+		<h2>convenient exam preparation workspace for</h2>
 		<h1>IT certifications</h1>
 		<p class="subtitle">
 			Free actual exam questions & answers for hundreds of IT
@@ -59,6 +59,16 @@ export default {
 </script>
 
 <style scoped>
+.main-container {
+	background: linear-gradient(
+			rgba(255, 255, 255, 0.5),
+			rgba(255, 255, 255, 0.8)
+		),
+		url(/assets/images/ciw_1920x1200.jpg);
+	background-size: cover;
+	height: 100%;
+	overflow: hidden;
+}
 .main-container {
 	display: flex;
 	flex-direction: column;
