@@ -29,5 +29,7 @@
 	/* text-align: center; */
 	/* color: #111; */
 }
-
+body {
+	margin: 0;
+}
 </style>

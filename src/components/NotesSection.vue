@@ -129,6 +129,7 @@ export default {
 	/* border: 1px solid gray; */
 	/* flex-basis: 40%; */
 	border-left: 1px solid #ccc;
+	flex: 3 1 0;
 }
 .button-header {
 	display: flex;

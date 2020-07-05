@@ -1,97 +1,134 @@
 <template>
-	<div class="desk" v-if="!isLoading">
-		<h2 class="title">{{ examData.certTitle }}</h2>
-
-		<div class="subtitle">
-			<p class="provider">{{ examData.certProvider }}</p>
-
-			<div class="filter-tags">
-				<!-- <label>Filter by tag</label> -->
-				<multiselect
-					v-model="filterTags"
-					placeholder="Filter questions by tags"
-					:options="filterAllTags"
-					:multiple="true"
-					:show-labels="false"
-					@close="checkForUntaggedTag"
-				></multiselect>
-			</div>
-		</div>
-
-		<div class="question-navigation">
-			<button
-				@click="previousQuestion"
-				:class="{
-					inactive: this.currentQuestionIndex == 0
-				}"
-			>
-				&lt;&lt;
-			</button>
-			<p v-if="question">
-				question #{{ question.questionNumber }} ({{
-					currentQuestionIndex + 1
-				}}
-				out of {{ filteredQuestions.length }})
-			</p>
-			<button
-				@click="nextQuestion"
-				:class="{
-					inactive:
-						this.currentQuestionIndex >
-						this.filteredQuestions.length - 2
-				}"
-			>
-				&gt;&gt;
-			</button>
-		</div>
-
-		<transition name="fade">
-			<div class="container" v-if="question && transitionSwitcher">
-				<div class="question-section" :question-id="question.id">
-					<div v-html="question.questionText"></div>
-					<ul class="answers">
-						<li
-							v-for="answer in question.questionAnswers"
-							:key="answer.letter"
-							:class="{
-								selected: showCorrectAnswer && answer.isCorrect
-							}"
-						>
-							<div class="answer">
-								<div class="answer-letter">
-									{{ answer.letter }}
-								</div>
-								<div class="answer-text">{{ answer.text }}</div>
-							</div>
-						</li>
-					</ul>
-
-					<button
-						class="reveal-solution"
-						@click="showCorrectAnswer = !showCorrectAnswer"
-						:disabled="
-							!question.questionAnswers.some(
-								answer => answer.isCorrect
-							)
-						"
+	<div class="main-container noscroll">
+		<header class="topbar">
+			<div class="logo">
+				<p>
+					Certification provider
+					<span v-if="!isLoading">
+						/ {{ examData.certProvider }}</span
 					>
-						Reveal Solution
-					</button>
-					<button @click="showDiscussion">Show dicussion</button>
+				</p>
+			</div>
+			<div>
+				<router-link :to="{ name: 'Home' }" class="link">
+					Home
+				</router-link>
+			</div>
+		</header>
 
-					<!-- <label class="typo__label">Tagging</label> -->
+		<div class="desk" v-if="!isLoading">
+			<h2 class="title">{{ examData.certTitle }}</h2>
+			<!-- <p class="provider">{{ examData.certProvider }}</p> -->
+
+			<div class="subtitle">
+				<div class="question-navigation">
+					<button
+						@click="previousQuestion"
+						:class="{
+							inactive: this.currentQuestionIndex == 0
+						}"
+					>
+						&lt;&lt;
+					</button>
+					<p v-if="question">
+						question #{{ question.questionNumber }} ({{
+							currentQuestionIndex + 1
+						}}
+						out of {{ filteredQuestions.length }})
+					</p>
+					<button
+						@click="nextQuestion"
+						:class="{
+							inactive:
+								this.currentQuestionIndex >
+								this.filteredQuestions.length - 2
+						}"
+					>
+						&gt;&gt;
+					</button>
+				</div>
+
+				<div class="filter-tags">
+					<label>Filter by:</label>
 					<multiselect
-						v-model="questionTags"
-						placeholder="Tags"
-						:options="allTags"
+						v-model="filterTags"
+						placeholder="tags"
+						:options="filterAllTags"
 						:multiple="true"
-						:taggable="true"
-						@tag="addTag"
+						:show-labels="false"
+						@close="checkForUntaggedTag"
 					></multiselect>
 				</div>
-				<notes-section ref="notes" :question="question" />
 			</div>
-		</transition>
+
+			<transition name="fade">
+				<div class="container" v-if="question && transitionSwitcher">
+					<div class="question-section" :question-id="question.id">
+						<div v-html="question.questionText"></div>
+						<ul class="answers">
+							<li
+								v-for="answer in question.questionAnswers"
+								:key="answer.letter"
+								:class="{
+									selected:
+										showCorrectAnswer && answer.isCorrect
+								}"
+							>
+								<div class="answer">
+									<div class="answer-letter">
+										{{ answer.letter }}
+									</div>
+									<div class="answer-text">
+										{{ answer.text }}
+									</div>
+								</div>
+							</li>
+						</ul>
+
+						<div class="question-footer">
+							<button
+								class="reveal-solution"
+								@click="showCorrectAnswer = !showCorrectAnswer"
+								:disabled="
+									!question.questionAnswers.some(
+										answer => answer.isCorrect
+									)
+								"
+							>
+								Reveal Solution
+							</button>
+
+							<multiselect
+								v-model="questionTags"
+								placeholder="Type a new tag here.."
+								:options="allTags"
+								:multiple="true"
+								:taggable="true"
+								:show-labels="false"
+								@tag="addTag"
+							></multiselect>
+
+							<!-- <button @click="showDiscussion">Show dicussion</button> -->
+							<button
+								@click="nextQuestion"
+								:disabled="
+									this.currentQuestionIndex >
+										this.filteredQuestions.length - 2
+								"
+							>
+								Next question
+							</button>
+						</div>
+					</div>
+					<notes-section ref="notes" :question="question" />
+				</div>
+			</transition>
+		</div>
+		<footer class="footer">
+			<div class="logo">
+				<p>certence © 2020</p>
+			</div>
+		</footer>
 	</div>
 </template>
 
@@ -239,14 +276,14 @@ export default {
 		this.isLoading = true;
 		this.$store
 			.dispatch("LOAD_EXAM_DATA", {
-				// provider: "amazon",
 				provider: this.$route.params.certProvider,
-				// exam: "aws-certified-solutions-architect-associate"
 				exam: this.$route.params.certSlug
 			})
 			.then(() => {
-				this.isLoading = false;
-				this.buildFilteredQuestions();
+				setTimeout(() => {
+					this.isLoading = false;
+					this.buildFilteredQuestions();
+				}, 50);
 			});
 	}
 };
@@ -255,13 +292,76 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style scoped>
+.noscroll.main-container {
+	height: 100vh;
+	max-height: 100vh;
+}
+.noscroll .desk {
+	overflow-y: hidden;
+	flex: 1 1 auto;
+}
+.noscroll .container {
+	overflow-y: hidden;
+	flex: 1 1 auto;
+}
+.noscroll .question-section {
+	overflow-y: auto;
+}
+
+.main-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 .desk {
 	/* flex-basis: 60%; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	max-width: 80%;
-	margin: 0 auto;
+	width: 80%;
+	margin-bottom: 70px;
+	/* margin: 0 auto 150px; */
+}
+.topbar {
+	width: 100%;
+	padding: 7px 30px;
+	font-size: 0.9em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	color: #fff;
+	background-color: #444;
+	margin-bottom: 20px;
+}
+.topbar .logo p {
+	margin: 0;
+	font-family: "Comfortaa";
+}
+.topbar .logo p span {
+	color: #ddd;
+}
+.topbar .link {
+	color: #ddd;
+	text-decoration: none;
+	font-family: "Comfortaa";
+	transition: color 0.3s ease-in-out;
+}
+.topbar .link:hover {
+	color: white;
+}
+.footer {
+	margin-top: 30px;
+	width: 100%;
+	color: #fff;
+	background-color: #444;
+	position: absolute;
+	bottom: 0;
+}
+.footer .logo {
+	text-align: center;
+	color: #ccc;
 }
 .title {
 	margin-bottom: 0;
@@ -269,6 +369,7 @@ export default {
 .subtitle {
 	margin-top: 10px;
 	width: 80%;
+	padding: 20px 0 40px;
 	display: flex;
 	justify-content: space-between;
 }
@@ -281,23 +382,47 @@ export default {
 .filter-tags {
 	display: flex;
 	align-items: center;
+	border: 1px solid #ddd;
+	padding: 2px 10px;
+	height: fit-content;
 }
-/* .filter-tag label {
-	margin-right: 10px;
-} */
+.filter-tags label {
+	color: #999;
+}
+.container {
+	width: 90%;
+	/* display: grid; */
+	display: flex;
+	grid-template-columns: 8fr 4fr;
+}
 .question-section {
-	/* flex-basis: 60%; */
-	padding: 10px;
+	padding: 10px 10px 0;
+	flex: 5 1 0;
+	display: flex;
+    flex-direction: column;
+}
+.question-section::-webkit-scrollbar {
+	width: 7px;
+}
+.question-section::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+	border-radius: 1px;
+}
+
+.question-section::-webkit-scrollbar-thumb {
+	border-radius: 3px;
+	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
 }
 .question-section >>> p {
 	text-indent: 1.5em;
 	margin-top: 0px;
 	margin-bottom: 0.5em;
 }
-.question-section ul {
+.question-section .answers {
 	list-style-type: none;
 	margin-top: 1.6em;
 	padding-left: 0.8em;
+	flex: 1 0 auto;
 }
 .question-section li {
 	width: fit-content;
@@ -315,15 +440,10 @@ export default {
 	font-weight: bold;
 	margin-right: 10px;
 }
-.container {
-	width: 90%;
-	display: grid;
-	grid-template-columns: 8fr 4fr;
-	margin-top: 1em;
-}
 .question-navigation {
 	display: flex;
 	align-items: center;
+	margin: 0;
 }
 .question-navigation button {
 	color: #555;
@@ -375,18 +495,57 @@ export default {
 .comment-replies {
 	margin-left: 40px;
 }
-/* .reveal-solution {
-	display: none;
+
+.question-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 30px;
+	position: sticky;
+	bottom: 0;
+	background-color: white;
 }
-.reveal-solution.visible {
-	display: initial;
-} */
+
+.question-footer button {
+	border: none;
+	border: 1px solid #404040;
+	background: #404040;
+	color: #ffffff !important;
+	font-weight: bold;
+	font-family: "Comfortaa";
+	padding: 6px 15px;
+	height: fit-content;
+	/* text-transform: uppercase; */
+	border-radius: 3px;
+	display: inline-block;
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+}
+
+.question-footer button:hover {
+	/* color: #222 !important; */
+	/* font-weight: 700 !important; */
+	/* background: #ccc; */
+	background: #333;
+	/* letter-spacing: 3px; */
+	/* background: none; */
+	border: 1px solid #999;
+	box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.77);
+	transition: all 0.3s ease 0s;
+}
+
+.question-footer .multiselect {
+	border: 1px solid #ddd;
+	margin: 0 5px;
+	min-height: 50px;
+}
 
 .filter-tags >>> .multiselect {
 	border: none;
 	max-width: 400px;
 	transition: all 0.3s ease-in-out;
 	cursor: pointer;
+	margin-left: 10px;
 }
 .filter-tags >>> .multiselect:hover {
 	background-color: #eee;
@@ -415,6 +574,9 @@ export default {
 	width: 18px;
 	line-height: 18px;
 	border-radius: 2px;
+}
+.filter-tags >>> .multiselect__tag-icon:after {
+	color: inherit;
 }
 .filter-tags >>> .multiselect__tag-icon:focus,
 .filter-tags >>> .multiselect__tag-icon:hover {
@@ -446,16 +608,16 @@ export default {
 .multiselect {
 	width: unset;
 }
-/* .multiselect__tag {
+.multiselect__tag {
 	padding: 5px 26px 5px 10px;
 	border-radius: 2px;
 	background: #7f7f7f;
 }
 .multiselect__tag-icon:after {
-	color: #eee;	
+	color: #eee;
 }
 .multiselect__tag-icon:focus,
 .multiselect__tag-icon:hover {
 	background: #444;
-} */
+}
 </style>
