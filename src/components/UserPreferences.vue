@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="setting">
 				<p class="title">Local scroll mode</p>
-				<p class="subtitle">Local scroll mode</p>
+				<p class="subtitle">Scroll on question content and discution only instead of scroll on browser window</p>
 			</div>
 			<input type="checkbox" v-model="userPreferences.localScrollMode" />
 		</div>
@@ -54,6 +54,11 @@ export default {
 .up-container .row {
 	display: flex;
 	justify-content: space-between;
+}
+.up-container input[type="checkbox"] {
+	width: 35px;
+	height: 22px;
+	cursor: pointer;
 }
 .up-container .row .title {
 	margin: 0 20px 5px 0;

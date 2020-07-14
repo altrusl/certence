@@ -16,8 +16,11 @@
 				<router-link :to="{ name: 'Home' }" class="link">
 					Home
 				</router-link>
+				<span class="divider">|</span>
+				<a @click="showPreferenses = true" href="#" class="link"
+					>Preferences</a
+				>
 			</div>
-			<button @click="showPreferenses = true">Open Modal</button>
 		</header>
 
 		<div class="desk" v-if="!isLoading">
@@ -238,19 +241,6 @@ export default {
 			console.log(this.question.id);
 		},
 		setDiscussion(discussion) {
-			// this.filteredQuestions[
-			// this.currentQuestionIndex
-			// ].discussion = discussion;
-			// if (!discussion) {
-			// 	return;
-			// }
-			// console.log(discussion);
-
-			// discussion = discussion
-			// 	.split("&gt;")
-			// 	.join(">")
-			// 	.split("&lt;")
-			// 	.join("<");
 			Vue.set(
 				this.filteredQuestions[this.currentQuestionIndex],
 				"discussion",
@@ -384,6 +374,9 @@ export default {
 }
 .topbar .link:hover {
 	color: white;
+}
+.topbar .divider {
+	padding: 0 13px;
 }
 .footer {
 	margin-top: 30px;

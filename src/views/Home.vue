@@ -3,7 +3,7 @@
 		<header>
 			<div class="title">Certence</div>
 
-			<div id="nav">
+			<div class="nav">
 				<!-- <router-link to="/">Home</router-link> | -->
 				<router-link
 					v-if="lastExam != null"
@@ -98,14 +98,15 @@ header .title {
 header .nav {
 	align-self: flex-start;
 }
-#nav {
+.nav {
 	padding: 5px 30px 0;
 }
-#nav a {
+.nav a {
 	font-weight: bold;
 	color: #2c3e50;
+	text-decoration: none;
 }
-#nav a.router-link-exact-active {
+.nav a.router-link-exact-active {
 	color: #abadac;
 }
 h1 {
