@@ -3,6 +3,12 @@ module.exports = {
 	outputDir: "./dist",
 	css: {
 		extract: false
-		sourceMap: true
+		// sourceMap: true
+	},
+	devServer: {
+		// clientLogLevel: 'info',
+		watchOptions: {
+			poll: true
+		}
 	}
 };

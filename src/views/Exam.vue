@@ -1,9 +1,12 @@
 <template>
-	<div class="main-container noscroll">
+	<div
+		class="main-container"
+		:class="{ noscroll: userPreferences.localScrollMode }"
+	>
 		<header class="topbar">
 			<div class="logo">
 				<p>
-					Certification provider
+					Certfication provider
 					<span v-if="!isLoading">
 						/ {{ examData.certProvider }}</span
 					>
@@ -14,6 +17,7 @@
 					Home
 				</router-link>
 			</div>
+			<button @click="showPreferenses = true">Open Modal</button>
 		</header>
 
 		<div class="desk" v-if="!isLoading">
@@ -129,20 +133,29 @@
 				<p>certence © 2020</p>
 			</div>
 		</footer>
+		<modal-window
+			:visible="showPreferenses"
+			@close="showPreferenses = false"
+		>
+			<user-preferences />
+		</modal-window>
 	</div>
 </template>
 
 <script>
 import Vue from "vue";
 import NotesSection from "@/components/NotesSection.vue";
+import UserPreferences from "@/components/UserPreferences.vue";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapState } from "vuex";
+import ModalWindow from "s:/src/Vuesence/modal-window/src/components/ModalWindow.vue";
 
 export default {
 	data() {
 		return {
 			dummyCounter: 0,
 			isLoading: false,
+			showPreferenses: false,
 			transitionSwitcher: true,
 			showCorrectAnswer: false,
 			allTags: ["Easy", "Complex", "Intricate"],
@@ -154,11 +167,13 @@ export default {
 	name: "Exam",
 	components: {
 		NotesSection,
-		Multiselect
+		Multiselect,
+		UserPreferences,
+		ModalWindow
 	},
 
 	computed: {
-		...mapState(["examData", "currentQuestionIndex"]),
+		...mapState(["examData", "currentQuestionIndex", "userPreferences"]),
 		...mapGetters(["userTags"]),
 
 		question() {
@@ -226,6 +241,16 @@ export default {
 			// this.filteredQuestions[
 			// this.currentQuestionIndex
 			// ].discussion = discussion;
+			// if (!discussion) {
+			// 	return;
+			// }
+			// console.log(discussion);
+
+			// discussion = discussion
+			// 	.split("&gt;")
+			// 	.join(">")
+			// 	.split("&lt;")
+			// 	.join("<");
 			Vue.set(
 				this.filteredQuestions[this.currentQuestionIndex],
 				"discussion",
@@ -285,6 +310,11 @@ export default {
 					this.buildFilteredQuestions();
 				}, 50);
 			});
+		const data = {
+			certProvider: this.$route.params.certProvider,
+			certSlug: this.$route.params.certSlug
+		};
+		localStorage.setItem("lastExam", JSON.stringify(data));
 	}
 };
 </script>
@@ -306,6 +336,10 @@ export default {
 }
 .noscroll .question-section {
 	overflow-y: auto;
+}
+.noscroll .footer {
+	position: absolute;
+	bottom: 0;
 }
 
 .main-container {
@@ -399,7 +433,7 @@ export default {
 	padding: 10px 10px 0;
 	flex: 5 1 0;
 	display: flex;
-    flex-direction: column;
+	flex-direction: column;
 }
 .question-section::-webkit-scrollbar {
 	width: 7px;
@@ -439,6 +473,9 @@ export default {
 .question-section .answer-letter {
 	font-weight: bold;
 	margin-right: 10px;
+}
+.question-section img {
+	max-width: 100%;
 }
 .question-navigation {
 	display: flex;

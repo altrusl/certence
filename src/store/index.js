@@ -9,6 +9,9 @@ export default new Vuex.Store({
 		examData: {
 			certTitle: ""
 		},
+		userPreferences: {
+			localScrollMode: true
+		},
 		userData: {},
 		certUserData: {},
 		currentQuestionIndex: 2
@@ -24,6 +27,11 @@ export default new Vuex.Store({
 	mutations: {
 		// eslint-disable-next-line prettier/prettier
 
+		SAVE_USER_PREFERENCES(state, preferences) {
+			console.log(1);
+			
+			state.userPreferences = preferences;
+		},
 		LOAD_USER_DATA(state) {
 			console.log("loading user data");
 			state.userData = JSON.parse(window.localStorage.getItem("data")) || {};

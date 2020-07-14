@@ -4,17 +4,17 @@
 			<div class="title">Certence</div>
 
 			<div id="nav">
-				<router-link to="/">Home</router-link> |
+				<!-- <router-link to="/">Home</router-link> | -->
 				<router-link
+					v-if="lastExam != null"
 					:to="{
 						name: 'Exam',
 						params: {
-							certProvider: 'amazon',
-							certSlug:
-								'aws-certified-solutions-architect-associate'
+							certProvider: lastExam.certProvider,
+							certSlug: lastExam.certSlug
 						}
 					}"
-					>Exam</router-link
+					>Last exam</router-link
 				>
 			</div>
 		</header>
@@ -47,8 +47,16 @@ export default {
 	},
 	data() {
 		return {
-			modalOpen: false
+			modalOpen: false,
+			lastExamExists: false,
+			lastExam: null
 		};
+	},
+	created() {
+		this.lastExam = JSON.parse(localStorage.getItem("lastExam"));
+		// if (lastExam) {
+		// 	this.lastExamExists = true;
+		// }
 	},
 	methods: {
 		openModal() {

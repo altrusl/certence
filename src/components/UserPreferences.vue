@@ -1,0 +1,67 @@
+<template>
+	<div class="up-container">
+		<h2>Preferences</h2>
+
+		<div class="row">
+			<div class="setting">
+				<p class="title">Local scroll mode</p>
+				<p class="subtitle">Local scroll mode</p>
+			</div>
+			<input type="checkbox" v-model="userPreferences.localScrollMode" />
+		</div>
+	</div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+export default {
+	name: "UserPreferences",
+	data() {
+		return {
+			// localScrollMode: true,
+			// preferences: {
+			// 	localScrollMode: true
+			// }
+		};
+	},
+	props: {},
+	methods: {
+		close() {
+			// this.$emit("input", !this.value);
+		}
+	},
+	watch: {
+		// localScrollMode: function() {
+		// 	console.log("sss");
+		// 	this.$store.commit("SAVE_USER_PREFERENCES", this.preferences);
+		// }
+	},
+	computed: {
+		...mapState(["userPreferences"])
+	},
+	created() {}
+};
+</script>
+
+<style scoped>
+.up-container {
+	display: flex;
+	flex-direction: column;
+}
+.up-container h2 {
+	margin-top: 0.5em;
+}
+.up-container .row {
+	display: flex;
+	justify-content: space-between;
+}
+.up-container .row .title {
+	margin: 0 20px 5px 0;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+.up-container .row .subtitle {
+	margin: 0;
+	font-size: 0.9em;
+}
+</style>

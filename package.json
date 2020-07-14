@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"serve": "vue-cli-service serve",
-		"dev": "vue-cli-service serve",
+		"dev": "cross-env NODE_ENV=development vue-cli-service serve --open --host localhost",
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint"
 	},

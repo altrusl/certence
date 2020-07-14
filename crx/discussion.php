@@ -59,7 +59,10 @@ function collectCommentData($cc) {
     $data["username"] = trim($cc->find(".comment-username", 0)->plaintext);
     $data["date"] = $cc->find(".comment-date", 0)->getAttribute('title');
     $data["dateRel"] = trim($cc->find(".comment-date", 0)->plaintext);
-    $data["text"] = trim($cc->find(".comment-content", 0)->plaintext);
+    $data["text"] = htmlspecialchars_decode(trim($cc->find(".comment-content", 0)->plaintext));
+    // $data["text"] = str_replace("&gt;", ">", $data["text"]);
+    // $data["text"] = str_replace("&lt;", "<", $data["text"]);
+    // $data["text"] = str_replace("&quot;", "\"", $data["text"]);
     $data["upvotes"] = intval(trim($cc->find(".upvote-count", 0)->plaintext));
     $data["level"] = 0;
     $p = $cc->parent();
