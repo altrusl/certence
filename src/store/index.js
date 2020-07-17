@@ -93,7 +93,7 @@ export default new Vuex.Store({
 						return 0;
 					});
 					state.examData.questions.forEach((q) => {
-						q.questionText = "<p>" + q.questionText.replace(/<img src="/g, "<img src=\"https://www.examtopics.com")
+						q.questionText = "<p class='image'>" + q.questionText.replace(/<img src="/g, "<img src=\"https://www.examtopics.com")
 							.replace(/<br>/g, "</p><p>") + "</p>";
 					});
 					this.commit("LOAD_USER_DATA");

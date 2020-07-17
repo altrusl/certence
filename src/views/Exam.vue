@@ -107,7 +107,7 @@
 
 							<multiselect
 								v-model="questionTags"
-								placeholder="Type a new tag here.."
+								placeholder="Type a new tag name here.."
 								:options="allTags"
 								:multiple="true"
 								:taggable="true"
@@ -467,8 +467,9 @@ export default {
 	font-weight: bold;
 	margin-right: 10px;
 }
-.question-section img {
+.question-section >>> img {
 	max-width: 100%;
+	margin-left: -1.5em;
 }
 .question-navigation {
 	display: flex;
@@ -511,11 +512,11 @@ export default {
 .question-navigation p {
 	/* text-transform: uppercase; */
 	color: #444;
-	font-size: 1.3em;
+	font-size: 1.1em;
 	letter-spacing: 1px;
-	font-weight: 700;
+	/* font-weight: 700; */
 	font-family: Comfortaa;
-	font-variant: unicase;
+	/* font-variant: unicase; */
 	margin: 10px 0 11px;
 }
 .answers .selected {
@@ -567,7 +568,7 @@ export default {
 .question-footer .multiselect {
 	border: 1px solid #ddd;
 	margin: 0 5px;
-	min-height: 50px;
+	/* min-height: 50px; */
 }
 
 .filter-tags >>> .multiselect {
@@ -581,9 +582,9 @@ export default {
 	background-color: #eee;
 }
 
-.filter-tags >>> .multiselect__tags {
+/* .filter-tags >>> .multiselect__tags {
 	border: none;
-}
+} */
 .filter-tags >>> .multiselect__tag {
 	padding: 4px 22px 4px 6px;
 	border-radius: 0px;
@@ -637,6 +638,9 @@ export default {
 <style>
 .multiselect {
 	width: unset;
+}
+.multiselect__tags {
+	border: none;
 }
 .multiselect__tag {
 	padding: 5px 26px 5px 10px;
