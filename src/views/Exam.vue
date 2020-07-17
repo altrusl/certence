@@ -102,7 +102,7 @@
 									)
 								"
 							>
-								Reveal Solution
+								Reveal solution
 							</button>
 
 							<multiselect

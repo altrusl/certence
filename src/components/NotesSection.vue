@@ -79,7 +79,7 @@ export default {
 				this.notesSelected = false;
 				if (!this.question.discussion) {
 					fetch(
-						"https://handspit.com/misc/discussion.php?id=" +
+						"https://certence.club/scripts/discussion.php?id=" +
 							this.question.id +
 							"&provider=" +
 							this.examData.certProviderSlug +

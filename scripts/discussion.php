@@ -6,7 +6,7 @@
 
 header("Access-Control-Allow-Origin: *");
 
-$examDir = __DIR__ . "/certifications/" . $_GET['provider'] . "/" . $_GET['exam'];
+$examDir = __DIR__ . "/../certifications/" . $_GET['provider'] . "/" . $_GET['exam'];
 
 if (!file_exists($examDir)) {
     echo "error";

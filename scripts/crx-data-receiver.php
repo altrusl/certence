@@ -1,18 +1,5 @@
 <?php
 
-// $d = file_get_contents(__DIR__ . "/cert-providers.json");
-// $d = json_decode($d);
-// $o = [];
-// foreach($d as $key => $val) {
-//     $oo = [];
-//     $oo["provider"] = $key;
-//     $oo["name"] = $val;
-//     $o[] = $oo;
-// }
-// print_r($o);
-// file_put_contents("1.json", json_encode($o));
-// exit;
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -24,7 +11,7 @@ $data = json_decode(file_get_contents('php://input'));
 $certProviders = json_decode(file_get_contents(__DIR__ . "/cert-providers.json"), true);
 $data->certProvider = $certProviders[$data->certProviderSlug];
 
-$examDir = __DIR__ . "/certifications/" . $data->certProviderSlug . "/" . $data->examSlug;
+$examDir = __DIR__ . "/../certifications/" . $data->certProviderSlug . "/" . $data->examSlug;
 $questionDir = $examDir . "/questions/";
 
 if (!file_exists($questionDir)) {
@@ -42,8 +29,8 @@ file_put_contents($examDir . "/certification.json",
     json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
 
-if (file_exists(__DIR__ . "/certifications.json")) {
-    $certs = json_decode(file_get_contents(__DIR__ . "/certifications.json"), true);    
+if (file_exists(__DIR__ . "/../certifications.json")) {
+    $certs = json_decode(file_get_contents(__DIR__ . "/../certifications.json"), true);    
 } else {
     $certs = [];
 }
@@ -61,7 +48,7 @@ if (!$duplicate) {
     $certs[] = $data;
 }
 
-file_put_contents(__DIR__ . "/certifications.json", 
+file_put_contents(__DIR__ . "/../certifications.json", 
     json_encode($certs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
 

@@ -84,7 +84,7 @@ export default {
 		}
 	},
 	created() {
-		fetch("certifications.json").then(response => {
+		fetch("https://certence.club/certifications.json").then(response => {
 			response.json().then(data => {
 				// this.certifications = data;
 				data.forEach(cert => {
