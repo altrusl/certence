@@ -20,7 +20,7 @@
 		</header>
 
 		<!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
-		<img alt="Vue logo" src="/assets/images/logo1.png" />
+		<img alt="Vue logo" src="/assets/images/home_logo.png" />
 		<h2>convenient exam preparation workspace for</h2>
 		<h1>IT certifications</h1>
 		<p class="subtitle">
@@ -72,7 +72,7 @@ export default {
 			rgba(255, 255, 255, 0.5),
 			rgba(255, 255, 255, 0.8)
 		),
-		url(/assets/images/ciw_1920x1200.jpg);
+		url(/assets/images/home_bg.jpg);
 	background-size: cover;
 	height: 100%;
 	overflow: hidden;

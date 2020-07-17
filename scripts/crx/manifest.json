@@ -1,0 +1,16 @@
+{
+    "name": "Certence Collector",
+    "version": "1.0",
+    "description": "Web extension for collecting exam questions",
+    "content_scripts":[
+        {
+            "matches":["https://*.examtopics.com/*"],
+            "js":["contentScript.js"]
+        }
+    ],
+    "permissions": [
+        "https://certence.club/*"
+    ],
+
+    "manifest_version": 2
+}
