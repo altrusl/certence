@@ -152,7 +152,15 @@
 		</div>
 		<footer class="footer">
 			<div class="logo">
-				<p>certence © 2020</p>
+				<p>
+					<span class="copyright">certence © 2020</span> |
+					<span
+						class="how-it-works-label"
+						@click="howItWorksOpen = true"
+					>
+						How It Works
+					</span>
+				</p>
 			</div>
 		</footer>
 		<modal-window
@@ -161,12 +169,20 @@
 		>
 			<user-preferences-dialog />
 		</modal-window>
+		<modal-window
+			:visible="howItWorksOpen"
+			@close="howItWorksOpen = false"
+			class="how-it-works"
+		>
+			<how-it-works />
+		</modal-window>
 	</div>
 </template>
 
 <script>
 import Vue from "vue";
 import NotesSection from "@/components/NotesSection.vue";
+import HowItWorks from "@/components/HowItWorks";
 import UserPreferencesDialog from "@/components/UserPreferencesDialog.vue";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapState } from "vuex";
@@ -178,6 +194,7 @@ export default {
 			dummyCounter: 0,
 			isLoading: false,
 			showPreferenses: false,
+			howItWorksOpen: false,
 			transitionSwitcher: true,
 			showCorrectAnswer: false,
 			allTags: ["Easy", "Complex", "Intricate"],
@@ -189,6 +206,7 @@ export default {
 	name: "Exam",
 	components: {
 		NotesSection,
+		HowItWorks,
 		Multiselect,
 		UserPreferencesDialog,
 		ModalWindow
@@ -664,6 +682,27 @@ export default {
 .fade-enter,
 .fade-leave-to {
 	opacity: 0;
+}
+
+.footer {
+	font-family: "Comfortaa";
+	letter-spacing: 1px;
+}
+
+.copyright {
+	padding-right: 7px;
+}
+.how-it-works-label {
+	/* margin: 0 0 30px; */
+	padding: 0 7px 5px;
+	cursor: pointer;
+	text-transform: lowercase;
+}
+.how-it-works >>> .vmw-modal-container {
+	width: 80%;
+	max-width: 600px;
+	max-height: 80vh;
+	overflow-y: scroll;
 }
 </style>
 

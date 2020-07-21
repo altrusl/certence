@@ -30,7 +30,10 @@
 			Free actual exam questions & answers for hundreds of IT
 			certifications
 		</p>
-		<button class="choose-exam" @click="modalOpen = true">
+		<h3 class="how-it-works-label" @click="howItWorksOpen = true">
+			How It Works
+		</h3>
+		<button class="choose-exam" @click="chooseExamOpen = true">
 			Choose exam
 		</button>
 		<div class="providers">
@@ -40,24 +43,34 @@
 			<span>Microsoft</span>
 			<span>Dozens of others</span>
 		</div>
-		<!-- <choose-exam-modal v-model="modalOpen"></choose-exam-modal> -->
-		<modal-window :visible="modalOpen" @close="modalOpen = false">
+		<!-- <choose-exam-modal v-model="chooseExamOpen"></choose-exam-modal> -->
+		<modal-window :visible="chooseExamOpen" @close="chooseExamOpen = false">
 			<choose-exam-dialog />
+		</modal-window>
+		<modal-window
+			:visible="howItWorksOpen"
+			@close="howItWorksOpen = false"
+			class="how-it-works"
+		>
+			<how-it-works />
 		</modal-window>
 	</div>
 </template>
 
 <script>
 import ChooseExamDialog from "@/components/ChooseExamDialog";
+import HowItWorks from "@/components/HowItWorks";
 import ModalWindow from "s:/src/Vuesence/modal-window/src/components/ModalWindow.vue";
 export default {
 	components: {
 		ChooseExamDialog,
+		HowItWorks,
 		ModalWindow
 	},
 	data() {
 		return {
-			modalOpen: false,
+			chooseExamOpen: false,
+			howItWorksOpen: false,
 			lastExamExists: false,
 			lastExam: null
 		};
@@ -70,7 +83,7 @@ export default {
 	},
 	methods: {
 		// openModal() {
-		// 	this.modalOpen = !this.modalOpen;
+		// 	this.chooseExamOpen = !this.chooseExamOpen;
 		// }
 	}
 };
@@ -157,10 +170,18 @@ h1 {
 	background-color: #fafafa;
 	border-radius: 3px;
 }
->>> .vmw-modal-container {
+.main-container >>> .vmw-modal-container {
 	width: 80%;
-	max-width: 500px;
-	
+	max-width: 600px;
 }
-
+.how-it-works-label {
+	margin: 0 0 30px;
+	padding: 0 15px 5px;
+	border-bottom: 2px solid #333;
+	cursor: pointer;
+}
+.how-it-works >>> .vmw-modal-container {
+	max-height: 80vh;
+	overflow-y: scroll;
+}
 </style>
