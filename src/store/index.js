@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import anchorme from "anchorme";
 
 Vue.use(Vuex);
 /* eslint-disable */
@@ -29,7 +30,7 @@ export default new Vuex.Store({
 
 		SAVE_USER_PREFERENCES(state, preferences) {
 			console.log(1);
-			
+
 			state.userPreferences = preferences;
 		},
 		LOAD_USER_DATA(state) {
@@ -75,8 +76,8 @@ export default new Vuex.Store({
 			provider,
 			exam
 		}) {
-			const url = "https://certence.club/certifications/" 
-				+ provider + "/" + exam + "/data.json";
+			const url = "https://certence.club/certifications/" +
+				provider + "/" + exam + "/data.json";
 			// const url = "/data.json";
 			return fetch(url).then(response => {
 				response.json().then(data => {
@@ -84,10 +85,16 @@ export default new Vuex.Store({
 					// eslint-disable-next-line prettier/prettier
 					state.examData.questions = state.examData.questions.sort((a, b) => {
 						// eslint-disable-next-line prettier/prettier
-						if (a.questionNumber > b.questionNumber) {
+						if (!a.questionTopicNumber) a.questionTopicNumber = 1;
+						if (!b.questionTopicNumber) b.questionTopicNumber = 1;
+
+						const an = a.questionTopicNumber * 10000 + parseInt(a.questionNumber);
+						const bn = b.questionTopicNumber * 10000 + parseInt(b.questionNumber);
+
+						if (an > bn) {
 							return 1;
 						}
-						if (a.questionNumber < b.questionNumber) {
+						if (an < bn) {
 							return -1;
 						}
 						return 0;
@@ -95,6 +102,17 @@ export default new Vuex.Store({
 					state.examData.questions.forEach((q) => {
 						q.questionText = "<p class='image'>" + q.questionText.replace(/<img src="/g, "<img src=\"https://www.examtopics.com")
 							.replace(/<br>/g, "</p><p>") + "</p>";
+						q.correctAnswerDesc = "<p class='image'>" + q.correctAnswerDesc.replace(/<img src="/g, "<img src=\"https://www.examtopics.com")
+							.replace(/<br>/g, "</p><p>") + "</p>";
+
+						q.correctAnswerDesc = anchorme({
+							"input": q.correctAnswerDesc,
+							options: {
+								attributes: {
+									target: "_blank"
+								},
+							}
+						});
 					});
 					this.commit("LOAD_USER_DATA");
 				});

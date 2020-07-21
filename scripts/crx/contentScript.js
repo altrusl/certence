@@ -52,6 +52,10 @@ if (document.querySelector(".exam-view-header")) {
 			.querySelector(".card-header")
 			.childNodes[0].textContent.trim()
 			.substring(10);
+		item.questionTopicNumber = card
+			.querySelector(".card-header .question-title-topic")
+			.childNodes[0].textContent.trim()
+			.substring(6);
 		item.questionText = card.querySelector(".card-text").innerHTML.trim();
 
 		item.questionAnswers = [];

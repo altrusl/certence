@@ -1,44 +1,36 @@
 <template>
-	<div class="modal" v-show="value">
-		<div class="container">
-			<h2>Choose exam provider</h2>
+	<div class="container">
+		<h2>Choose exam provider</h2>
 
-			<multiselect
-				v-model="certProvider"
-				:options="certProviders"
-				label="name"
-				selectLabel=""
-				deselectLabel=""
-				:preselectFirst="true"
-			></multiselect>
+		<multiselect
+			v-model="certProvider"
+			:options="certProviders"
+			label="name"
+			selectLabel=""
+			deselectLabel=""
+			:preselectFirst="true"
+		></multiselect>
 
-			<ul class="cert-list">
-				<li
-					v-for="item in certificationsByProvider[
-						certProvider.provider
-					]"
-					v-bind:key="item.certTitle"
-					class="cert"
+		<ul class="cert-list">
+			<li
+				v-for="item in certificationsByProvider[certProvider.provider]"
+				v-bind:key="item.certTitle"
+				class="cert"
+			>
+				<router-link
+					:to="{
+						name: 'Exam',
+						params: {
+							certProvider: item.certProviderSlug,
+							certSlug: item.examSlug
+						}
+					}"
+					class="cert-link"
 				>
-					<router-link
-						:to="{
-							name: 'Exam',
-							params: {
-								certProvider: item.certProviderSlug,
-								certSlug: item.examSlug
-							}
-						}"
-						class="cert-link"
-					>
-						{{ item.certTitle }}
-					</router-link>
-				</li>
-			</ul>
-
-			<a @click.prevent="close" class="close">
-				Close
-			</a>
-		</div>
+					{{ item.certTitle }}
+				</router-link>
+			</li>
+		</ul>
 	</div>
 </template>
 
@@ -46,28 +38,19 @@
 import Vue from "vue";
 import Multiselect from "vue-multiselect";
 export default {
-	name: "ChooseExamModal",
+	name: "ChooseExamDialog",
 	components: { Multiselect },
 	data() {
 		return {
 			certProvider: {},
-			// certifications: [],
 			certificationsByProvider: {}
 		};
 	},
-	props: {
-		value: {
-			required: true
-		}
-	},
-	methods: {
-		close() {
-			this.$emit("input", !this.value);
-		}
-	},
+	props: {},
+	methods: {},
 	watch: {
 		certProvider: function(a, b) {
-			// a = null when user selects some item again
+			// a = null when user selects current item again
 			if (a == null) {
 				this.certProvider = b;
 			}
@@ -109,30 +92,19 @@ export default {
 </script>
 
 <style scoped>
-.modal {
-	background-color: rgba(0, 0, 0, 0.7);
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
 .container {
 	background-color: white;
-	max-width: 500px;
-	width: 70%;
-	height: 70%;
-	padding: 1em 3em;
-	border-radius: 2px;
+	/* max-width: 500px; */
+	/* width: 70%; */
+	/* height: 70%; */
+	/* padding: 1em 3em; */
+	/* border-radius: 2px; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	position: relative;
+	/* position: relative; */
 }
-.close {
+/* .close {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -144,9 +116,9 @@ export default {
 }
 .close:hover {
 	color: #222;
-}
+} */
 .multiselect {
-	width: 300px;
+	width: 250px;
 }
 .cert-list {
 	width: 100%;

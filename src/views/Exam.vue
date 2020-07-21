@@ -38,10 +38,13 @@
 						&lt;&lt;
 					</button>
 					<p v-if="question">
-						question #{{ question.questionNumber }} ({{
-							currentQuestionIndex + 1
+						question #{{
+							question.questionTopicNumber +
+								"." +
+								question.questionNumber
 						}}
-						out of {{ filteredQuestions.length }})
+						({{ currentQuestionIndex + 1 }} out of
+						{{ filteredQuestions.length }})
 					</p>
 					<button
 						@click="nextQuestion"
@@ -92,6 +95,11 @@
 							</li>
 						</ul>
 
+						<div
+							v-if="showCorrectAnswer"
+							v-html="question.correctAnswerDesc"
+						></div>
+
 						<div class="question-footer">
 							<button
 								class="reveal-solution"
@@ -140,7 +148,7 @@
 			:visible="showPreferenses"
 			@close="showPreferenses = false"
 		>
-			<user-preferences />
+			<user-preferences-dialog />
 		</modal-window>
 	</div>
 </template>
@@ -148,7 +156,7 @@
 <script>
 import Vue from "vue";
 import NotesSection from "@/components/NotesSection.vue";
-import UserPreferences from "@/components/UserPreferences.vue";
+import UserPreferencesDialog from "@/components/UserPreferencesDialog.vue";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapState } from "vuex";
 import ModalWindow from "s:/src/Vuesence/modal-window/src/components/ModalWindow.vue";
@@ -171,7 +179,7 @@ export default {
 	components: {
 		NotesSection,
 		Multiselect,
-		UserPreferences,
+		UserPreferencesDialog,
 		ModalWindow
 	},
 
@@ -327,6 +335,9 @@ export default {
 .noscroll .question-section {
 	overflow-y: auto;
 }
+.noscroll .question-footer {
+	position: sticky;
+}
 .noscroll .footer {
 	position: absolute;
 	bottom: 0;
@@ -383,7 +394,7 @@ export default {
 	width: 100%;
 	color: #fff;
 	background-color: #444;
-	position: absolute;
+	/* position: absolute; */
 	bottom: 0;
 }
 .footer .logo {
@@ -532,7 +543,7 @@ export default {
 	justify-content: space-between;
 	align-items: center;
 	margin-top: 30px;
-	position: sticky;
+	/* position: sticky; */
 	bottom: 0;
 	background-color: white;
 }
