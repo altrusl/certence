@@ -96,6 +96,16 @@
 						</ul>
 
 						<div
+							class="correct-answer"
+							v-if="
+								showCorrectAnswer &&
+									question.correctAnswer.includes('img')
+							"
+							v-html="question.correctAnswer"
+						></div>
+
+						<div
+							class="correct-answer-desc"
 							v-if="showCorrectAnswer"
 							v-html="question.correctAnswerDesc"
 						></div>
@@ -105,9 +115,10 @@
 								class="reveal-solution"
 								@click="showCorrectAnswer = !showCorrectAnswer"
 								:disabled="
-									!question.questionAnswers.some(
-										answer => answer.isCorrect
-									)
+									!question.correctAnswerDesc &&
+										!question.questionAnswers.some(
+											answer => answer.isCorrect
+										)
 								"
 							>
 								Reveal solution
@@ -303,10 +314,8 @@ export default {
 				exam: this.$route.params.certSlug
 			})
 			.then(() => {
-				setTimeout(() => {
-					this.isLoading = false;
-					this.buildFilteredQuestions();
-				}, 50);
+				this.isLoading = false;
+				this.buildFilteredQuestions();
 			});
 		const data = {
 			certProvider: this.$route.params.certProvider,
@@ -517,9 +526,9 @@ export default {
 	border: none;
 	outline: none;
 }
-.question-navigation button:hover {
-	/* background: lightgray; */
-}
+/* .question-navigation button:hover {
+	background: lightgray;
+} */
 .question-navigation p {
 	/* text-transform: uppercase; */
 	color: #444;
@@ -534,6 +543,18 @@ export default {
 	color: red;
 	border: 1px solid red;
 }
+
+.correct-answer-desc >>> a {
+	color: #666;
+	transition: all 0.3s ease-out;
+	text-decoration: none;
+}
+
+.correct-answer-desc >>> a:hover {
+	color: #111;
+	text-decoration: underline;
+}
+
 .comment-replies {
 	margin-left: 40px;
 }

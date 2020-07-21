@@ -17,8 +17,8 @@
 }
 @font-face {
 	font-family: "Martel";
-	src: url("/assets/fonts/Martel-Bold.woff2") format("woff"),
-		url("/assets/fonts/Martel-Bold.ttf") format("truetype");
+	src: url("/assets/fonts/Martel-Black.woff2") format("woff"),
+		url("/assets/fonts/Martel-Black.ttf") format("truetype");
 	font-display: block;
 }
 #app {

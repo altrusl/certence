@@ -83,7 +83,7 @@ if (document.querySelector(".exam-view-header")) {
 
 		item.correctAnswer = card
 			.querySelector(".correct-answer")
-			.innerText.trim();
+			.innerHTML.trim();
 		item.correctAnswerDesc = card
 			.querySelector(".answer-description")
 			.innerHTML.trim();

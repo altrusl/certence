@@ -1,6 +1,6 @@
 {
     "name": "Certence Collector",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Web extension for collecting exam questions",
     "content_scripts":[
         {

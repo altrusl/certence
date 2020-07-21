@@ -80,7 +80,7 @@ export default new Vuex.Store({
 				provider + "/" + exam + "/data.json";
 			// const url = "/data.json";
 			return fetch(url).then(response => {
-				response.json().then(data => {
+				return response.json().then(data => {
 					state.examData = data;
 					// eslint-disable-next-line prettier/prettier
 					state.examData.questions = state.examData.questions.sort((a, b) => {
@@ -102,9 +102,17 @@ export default new Vuex.Store({
 					state.examData.questions.forEach((q) => {
 						q.questionText = "<p class='image'>" + q.questionText.replace(/<img src="/g, "<img src=\"https://www.examtopics.com")
 							.replace(/<br>/g, "</p><p>") + "</p>";
+
+						if (q.correctAnswer.includes("<img")) {
+							q.correctAnswer = "<p class='image'>" + q.correctAnswer.replace(/<img src="/g, "<img src=\"https://www.examtopics.com")
+								.replace(/<br>/g, "</p><p>") + "</p>";
+						}
+						// if (q.correctAnswer.includes("<img")) {
 						q.correctAnswerDesc = "<p class='image'>" + q.correctAnswerDesc.replace(/<img src="/g, "<img src=\"https://www.examtopics.com")
 							.replace(/<br>/g, "</p><p>") + "</p>";
+						// }
 
+						
 						q.correctAnswerDesc = anchorme({
 							"input": q.correctAnswerDesc,
 							options: {
