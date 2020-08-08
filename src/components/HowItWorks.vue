@@ -11,7 +11,7 @@
 			Internet, why do we need something more?
 		</p>
 
-		<p>To make preparation <b>effective</b></p>
+		<h4>To make preparation effective</h4>
 
 		<p>
 			It can be assumed that an averagely traned user could confidently
@@ -62,12 +62,10 @@
 			so many of them and the passing score is low enough.
 		</p>
 
-		<p>
-			<b>
-				This approach saves a lot of time and effort during
-				certification preparation
-			</b>
-		</p>
+		<h3>
+			This approach saves a lot of time and effort during certification
+			preparation
+		</h3>
 	</div>
 </template>
 

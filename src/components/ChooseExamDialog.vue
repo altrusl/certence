@@ -2,14 +2,19 @@
 	<div class="container">
 		<h2>Choose exam provider</h2>
 
-		<multiselect
-			v-model="certProvider"
-			:options="certProviders"
-			label="name"
-			selectLabel=""
-			deselectLabel=""
-			:preselectFirst="true"
-		></multiselect>
+		<div>
+			<multiselect
+				v-model="certProvider"
+				:options="certProviders"
+				label="name"
+				selectLabel=""
+				deselectLabel=""
+				:preselectFirst="true"
+			></multiselect>
+			<div class="meter" :class="{active: providerListIsLoading}">
+				<span style="width:80%;"><span class="progress"></span></span>
+			</div>
+		</div>
 
 		<ul class="cert-list">
 			<li
@@ -43,7 +48,8 @@ export default {
 	data() {
 		return {
 			certProvider: {},
-			certificationsByProvider: {}
+			certificationsByProvider: {},
+			providerListIsLoading: false
 		};
 	},
 	props: {},
@@ -67,6 +73,7 @@ export default {
 		}
 	},
 	created() {
+		this.providerListIsLoading = true;
 		fetch("https://certence.club/certifications.json").then(response => {
 			response.json().then(data => {
 				// this.certifications = data;
@@ -79,6 +86,7 @@ export default {
 							cert.certProviderSlug,
 							[]
 						);
+						this.providerListIsLoading = false;
 					}
 					this.certificationsByProvider[cert.certProviderSlug].push(
 						cert
@@ -125,7 +133,7 @@ export default {
 }
 .multiselect {
 	border: 1px solid #999;
-	margin-bottom: 20px;
+	margin-bottom: 7px;
 }
 .cert-link {
 	text-decoration: none;
@@ -137,5 +145,34 @@ export default {
 }
 .cert-link:hover {
 	color: #111;
+}
+
+.meter.active {
+	display: inherit;
+}
+.meter {
+	height: 3px;
+	position: relative;
+	background: #eee;
+	overflow: hidden;
+	display: none;
+}
+.meter span {
+	display: block;
+	height: 100%;
+}
+.progress {
+	background-color: #777;
+	animation: progressBar 3s ease-in-out;
+	animation-fill-mode: both;
+}
+
+@keyframes progressBar {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
 }
 </style>

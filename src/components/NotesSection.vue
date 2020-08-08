@@ -1,5 +1,9 @@
 <template>
 	<div class="notes-section">
+		<div class="lds-ripple" :class="{ active: discussionIsLoading }">
+			<div></div>
+			<div></div>
+		</div>
 		<div class="button-header">
 			<a @click="toggleNotes" :class="{ active: notesSelected }"
 				>My notes</a
@@ -49,7 +53,8 @@ export default {
 		return {
 			dummyCounter: 0,
 			notesSelected: false,
-			discussionSelected: false
+			discussionSelected: false,
+			discussionIsLoading: false
 		};
 	},
 	name: "NotesSection",
@@ -78,6 +83,7 @@ export default {
 			if (this.discussionSelected) {
 				this.notesSelected = false;
 				if (!this.question.discussion) {
+					this.discussionIsLoading = true;
 					fetch(
 						"https://certence.club/scripts/discussion.php?id=" +
 							this.question.id +
@@ -89,6 +95,7 @@ export default {
 						response.json().then(data => {
 							this.$parent.setDiscussion(data);
 							this.$forceUpdate();
+							this.discussionIsLoading = false;
 						});
 					});
 				}
@@ -130,6 +137,7 @@ export default {
 	/* flex-basis: 40%; */
 	border-left: 1px solid #ccc;
 	flex: 3 1 0;
+	position: relative;
 }
 .button-header {
 	display: flex;
@@ -214,5 +222,46 @@ export default {
 }
 .level-2 {
 	margin-left: 60px;
+}
+
+.lds-ripple.active {
+	display: inline-block;
+}
+.lds-ripple {
+	display: none;
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	top: 50%;
+	left: 50%;
+	width: 142px;
+	height: 40px;
+	margin: -30px 0 0 -25px;
+}
+.lds-ripple div {
+	position: absolute;
+	border: 4px solid #777;
+	opacity: 1;
+	border-radius: 50%;
+	animation: lds-ripple 1.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+	animation-delay: -0.7s;
+}
+@keyframes lds-ripple {
+	0% {
+		top: 36px;
+		left: 36px;
+		width: 0;
+		height: 0;
+		opacity: 1;
+	}
+	100% {
+		top: 0px;
+		left: 0px;
+		width: 72px;
+		height: 72px;
+		opacity: 0;
+	}
 }
 </style>

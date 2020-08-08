@@ -360,7 +360,7 @@ export default {
 	flex: 1 1 auto;
 }
 .noscroll .question-section {
-	overflow-y: auto;
+	overflow-y: scroll;
 }
 .noscroll .question-footer {
 	position: sticky;
