@@ -49,7 +49,7 @@ Right now it contains only SAA related questions, but it's possible to add many 
 - <a href="https://github.com/altrusl/vuesence-cloud-sync-button" target="_blank">Cloud Sync Button</a> - a button with cloud synchronization animation
 - <a href="https://github.com/altrusl/vuesence-modal-window" target="_blank">Modal Window</a> - simple lightweight Modal Window Vue.js component
 
-You like Certence? Star it.
+#### You like Certence? Star it.
 
 -------
 
