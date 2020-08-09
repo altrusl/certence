@@ -2,7 +2,7 @@
 
 Convenient IT certification exam preparation workspace
 
-![VB-preview](https://imgur.com/AZmw8gA.jpg)
+![VB-preview](https://imgur.com/mx5rl3e.jpg)
 
 Free actual exam questions & answers for hundreds of IT certifications
 
