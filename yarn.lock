@@ -1172,6 +1172,13 @@
   resolved "https://registry.yarnpkg.com/@vue/web-component-wrapper/-/web-component-wrapper-1.2.0.tgz#bb0e46f1585a7e289b4ee6067dcc5a6ae62f1dd1"
   integrity sha512-Xn/+vdm9CjuC9p3Ae+lTClNutrVhsXpzxvoTXXtoys6kVRX9FkueSUAqSWAyZntmVLlR4DosBV4pH8y5Z/HbUw==
 
+"@vuesence/modal-window@^0.7.8":
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@vuesence/modal-window/-/modal-window-0.7.8.tgz#70dcc50629d6a2dad88fb768897c527bc9cb4f22"
+  integrity sha512-hiZwkrJQ96hXt/4Tf71wxKxR1BKe2pGo12N50J/UKIVnfV9k4shGkcZTmFU/ntSScqXe9kueePi0/FcxVcCcDQ==
+  dependencies:
+    vue "^2.6.11"
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"
@@ -1392,6 +1399,11 @@ alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
+
+anchorme@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/anchorme/-/anchorme-2.1.2.tgz#4abc7e128a8a42d0036a61ebb9b18bbc032fa52a"
+  integrity sha512-2iPY3kxDDZvtRzauqKDb4v7a5sTF4GZ+esQTY8nGYvmhAtGTeFPMn4cRnvyWS1qmtPTP0Mv8hyLOp9l3ZzWMKg==
 
 ansi-colors@^3.0.0:
   version "3.2.4"

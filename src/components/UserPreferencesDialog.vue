@@ -5,7 +5,10 @@
 		<div class="row">
 			<div class="setting">
 				<p class="title">Local scroll mode</p>
-				<p class="subtitle">Scroll on question content and discution only instead of scroll on browser window</p>
+				<p class="subtitle">
+					Scroll the question content only instead of scrolling the
+					entire browser window
+				</p>
 			</div>
 			<input type="checkbox" v-model="userPreferences.localScrollMode" />
 		</div>

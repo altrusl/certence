@@ -1,9 +1,6 @@
 <template>
 	<div class="notes-section">
-		<div class="lds-ripple" :class="{ active: discussionIsLoading }">
-			<div></div>
-			<div></div>
-		</div>
+		<loading-animation :loadingStatus="discussionIsLoading" />
 		<div class="button-header">
 			<a @click="toggleNotes" :class="{ active: notesSelected }"
 				>My notes</a
@@ -48,6 +45,7 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import LoadingAnimation from "@/components/LoadingAnimation.vue";
 export default {
 	data() {
 		return {
@@ -58,6 +56,9 @@ export default {
 		};
 	},
 	name: "NotesSection",
+	components: {
+		LoadingAnimation
+	},
 	props: {
 		question: {
 			type: Object
@@ -222,46 +223,5 @@ export default {
 }
 .level-2 {
 	margin-left: 60px;
-}
-
-.lds-ripple.active {
-	display: inline-block;
-}
-.lds-ripple {
-	display: none;
-	position: absolute;
-	width: 80px;
-	height: 80px;
-	top: 50%;
-	left: 50%;
-	width: 142px;
-	height: 40px;
-	margin: -30px 0 0 -25px;
-}
-.lds-ripple div {
-	position: absolute;
-	border: 4px solid #777;
-	opacity: 1;
-	border-radius: 50%;
-	animation: lds-ripple 1.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-}
-.lds-ripple div:nth-child(2) {
-	animation-delay: -0.7s;
-}
-@keyframes lds-ripple {
-	0% {
-		top: 36px;
-		left: 36px;
-		width: 0;
-		height: 0;
-		opacity: 1;
-	}
-	100% {
-		top: 0px;
-		left: 0px;
-		width: 72px;
-		height: 72px;
-		opacity: 0;
-	}
 }
 </style>

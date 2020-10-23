@@ -11,10 +11,10 @@
 			Internet, why do we need something more?
 		</p>
 
-		<h4>To make preparation effective</h4>
+		<h3>We need it to make preparation effective</h3>
 
 		<p>
-			It can be assumed that an averagely traned user could confidently
+			It can be assumed that an averagely trained user could confidently
 			answer about 60% of the questions in the test question bank, for 30%
 			he needs some research (but after going through them several times
 			he will definitely remember them), and the remaining 10% are the
@@ -36,13 +36,13 @@
 		<p>This is how we come to <b>tags</b> and question <b>filtering</b></p>
 
 		<p>
-			There are three preset tags for questions - "<b>Easy</b>",
+			There are three preset tags for test questions - "<b>Easy</b>",
 			"<b>Complex</b>", "<b>Intricate</b>". User can create custom tags as
 			well, for example - "Outdated", "Incorrect", "S3", "Persistence"
 		</p>
 		<p>
 			It is possible to filter questions by several tags - for example, to
-			show only "Complex" and "S3" questions
+			show only "<b>Complex</b>" and "<b>S3</b>" questions
 		</p>
 
 		<h3>
@@ -50,16 +50,16 @@
 		</h3>
 
 		<p>
-			A typical use-case is that the user goes through all the questions
-			once, applying tags. After that he forgets about "Easy" questions.
-			If in the test there are, say, 300 questions, that means about 200
-			of them are filtered out. They will no longer take up user attention
-			and time.
+			A typical use-case would be: a user goes through all the questions
+			once, applying tags. After that he forgets about "<b>Easy</b>"
+			questions. If in the test there are, say, 300 questions, that means
+			about 200 of them are filtered out. They will no longer take up user
+			attention and time.
 		</p>
 		<p>
-			Then he goes through "Complex" ones several times. And the
-			"Intricate" questions he, perhaps, may even skip - if there are not
-			so many of them and the passing score is low enough.
+			Then he goes through "<b>Complex</b>" ones several times. And the
+			"<b>Intricate</b>" questions he, perhaps, might even skip - if there
+			are not so many of them and the passing score is low enough.
 		</p>
 
 		<h3>
@@ -81,18 +81,8 @@ export default {
 <style scoped>
 .hiw-container {
 	background-color: white;
-	/* overflow-y: scroll; */
-	/* max-width: 500px; */
-	/* width: 70%; */
-	/* max-height: 80%; */
-	/* padding: 1em 1em; */
-	/* border-radius: 2px; */
-	/* display: flex; */
-	/* flex-direction: column; */
-	/* align-items: center; */
-	/* position: relative; */
 }
 b {
-	color: #333;
+	color: #444;
 }
 </style>

@@ -36,13 +36,15 @@
 		<button class="choose-exam" @click="chooseExamOpen = true">
 			Choose exam
 		</button>
-		<div class="providers">
+		<h3 class="where-to-get-tests-label" @click="whereGetTestsOpen = true">
+			Where to get more certification practice tests?
+		</h3>
+		<!-- <div class="providers">
 			<span>Amazon</span>
 			<span>Oracle</span>
-			<!-- <span>IBM</span> -->
 			<span>Microsoft</span>
 			<span>Dozens of others</span>
-		</div>
+		</div> -->
 		<!-- <choose-exam-modal v-model="chooseExamOpen"></choose-exam-modal> -->
 		<modal-window :visible="chooseExamOpen" @close="chooseExamOpen = false">
 			<choose-exam-dialog />
@@ -54,23 +56,33 @@
 		>
 			<how-it-works />
 		</modal-window>
+		<modal-window
+			:visible="whereGetTestsOpen"
+			@close="whereGetTestsOpen = false"
+			class="where-to-get-tests"
+		>
+			<where-to-get-tests />
+		</modal-window>
 	</div>
 </template>
 
 <script>
 import ChooseExamDialog from "@/components/ChooseExamDialog";
 import HowItWorks from "@/components/HowItWorks";
-import ModalWindow from "s:/src/Vuesence/modal-window/src/components/ModalWindow.vue";
+import WhereToGetTests from "@/components/WhereToGetTests";
+import ModalWindow from "@vuesence/modal-window";
 export default {
 	components: {
 		ChooseExamDialog,
 		HowItWorks,
+		WhereToGetTests,
 		ModalWindow
 	},
 	data() {
 		return {
 			chooseExamOpen: false,
 			howItWorksOpen: false,
+			whereGetTestsOpen: false,
 			lastExamExists: false,
 			lastExam: null
 		};
@@ -161,7 +173,7 @@ h1 {
 }
 .providers {
 	display: flex;
-	margin-top: 2em;
+	margin-top: 1em;
 }
 .providers span {
 	margin: 1em;
@@ -180,7 +192,15 @@ h1 {
 	border-bottom: 2px solid #333;
 	cursor: pointer;
 }
-.how-it-works >>> .vmw-modal-container {
+.where-to-get-tests-label {
+	margin: 30px 0 0;
+	padding: 0 15px 5px;
+	/* border-bottom: 2px solid #333; */
+	cursor: pointer;
+}
+
+.how-it-works >>> .vmw-modal-container,
+.where-to-get-tests >>> .vmw-modal-container {
 	max-height: 80vh;
 	overflow-y: scroll;
 }

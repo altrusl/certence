@@ -1,0 +1,402 @@
+[
+    {
+        "provider": "aba",
+        "name": "ABA"
+    },
+    {
+        "provider": "acams",
+        "name": "ACAMS"
+    },
+    {
+        "provider": "acfe",
+        "name": "ACFE"
+    },
+    {
+        "provider": "acsm",
+        "name": "ACSM"
+    },
+    {
+        "provider": "admission",
+        "name": "Admission"
+    },
+    {
+        "provider": "admission-tests",
+        "name": "Admission Tests"
+    },
+    {
+        "provider": "adobe",
+        "name": "Adobe"
+    },
+    {
+        "provider": "ahima",
+        "name": "AHIMA"
+    },
+    {
+        "provider": "ahlei",
+        "name": "AHLEI"
+    },
+    {
+        "provider": "aicpa",
+        "name": "AICPA"
+    },
+    {
+        "provider": "aiwmi",
+        "name": "AIWMI"
+    },
+    {
+        "provider": "alcatel-lucent",
+        "name": "Alcatel-Lucent"
+    },
+    {
+        "provider": "amazon",
+        "name": "Amazon"
+    },
+    {
+        "provider": "androidatc",
+        "name": "AndroidATC"
+    },
+    {
+        "provider": "apics",
+        "name": "APICS"
+    },
+    {
+        "provider": "apple",
+        "name": "Apple"
+    },
+    {
+        "provider": "arista",
+        "name": "Arista"
+    },
+    {
+        "provider": "aruba",
+        "name": "Aruba"
+    },
+    {
+        "provider": "asis",
+        "name": "ASIS"
+    },
+    {
+        "provider": "asq",
+        "name": "ASQ"
+    },
+    {
+        "provider": "avaya",
+        "name": "Avaya"
+    },
+    {
+        "provider": "axis-communications",
+        "name": "Axis Communications"
+    },
+    {
+        "provider": "bacb",
+        "name": "BACB"
+    },
+    {
+        "provider": "bcs",
+        "name": "BCS"
+    },
+    {
+        "provider": "bicsi",
+        "name": "BICSI"
+    },
+    {
+        "provider": "blockchain",
+        "name": "Blockchain"
+    },
+    {
+        "provider": "blue",
+        "name": "Blue"
+    },
+    {
+        "provider": "blue-coat",
+        "name": "Blue Coat"
+    },
+    {
+        "provider": "ca-technologies",
+        "name": "CA Technologies"
+    },
+    {
+        "provider": "checkpoint",
+        "name": "Checkpoint"
+    },
+    {
+        "provider": "cisco",
+        "name": "Cisco"
+    },
+    {
+        "provider": "citrix",
+        "name": "Citrix"
+    },
+    {
+        "provider": "ciw",
+        "name": "CIW"
+    },
+    {
+        "provider": "comptia",
+        "name": "CompTIA"
+    },
+    {
+        "provider": "cwnp",
+        "name": "CWNP"
+    },
+    {
+        "provider": "dell",
+        "name": "Dell"
+    },
+    {
+        "provider": "dmi",
+        "name": "DMI"
+    },
+    {
+        "provider": "eccouncil",
+        "name": "ECCouncil"
+    },
+    {
+        "provider": "emc",
+        "name": "EMC"
+    },
+    {
+        "provider": "english-test-preparation",
+        "name": "English Test Preparation"
+    },
+    {
+        "provider": "exin",
+        "name": "Exin"
+    },
+    {
+        "provider": "f5",
+        "name": "F5"
+    },
+    {
+        "provider": "filemaker",
+        "name": "FileMaker"
+    },
+    {
+        "provider": "finra",
+        "name": "FINRA"
+    },
+    {
+        "provider": "fortinet",
+        "name": "Fortinet"
+    },
+    {
+        "provider": "gaqm",
+        "name": "GAQM"
+    },
+    {
+        "provider": "giac",
+        "name": "GIAC"
+    },
+    {
+        "provider": "google",
+        "name": "Google"
+    },
+    {
+        "provider": "guidance-software",
+        "name": "Guidance Software"
+    },
+    {
+        "provider": "hp",
+        "name": "HP"
+    },
+    {
+        "provider": "hrci",
+        "name": "HRCI"
+    },
+    {
+        "provider": "huawei",
+        "name": "Huawei"
+    },
+    {
+        "provider": "ibm",
+        "name": "IBM"
+    },
+    {
+        "provider": "iia",
+        "name": "IIA"
+    },
+    {
+        "provider": "iiba",
+        "name": "IIBA"
+    },
+    {
+        "provider": "isaca",
+        "name": "Isaca"
+    },
+    {
+        "provider": "isc",
+        "name": "ISC"
+    },
+    {
+        "provider": "isqi",
+        "name": "iSQI"
+    },
+    {
+        "provider": "istqb",
+        "name": "ISTQB"
+    },
+    {
+        "provider": "itil",
+        "name": "ITIL"
+    },
+    {
+        "provider": "juniper",
+        "name": "Juniper"
+    },
+    {
+        "provider": "linux-foundation",
+        "name": "Linux Foundation"
+    },
+    {
+        "provider": "lpi",
+        "name": "LPI"
+    },
+    {
+        "provider": "magento",
+        "name": "Magento"
+    },
+    {
+        "provider": "mcafee",
+        "name": "McAfee"
+    },
+    {
+        "provider": "microsoft",
+        "name": "Microsoft"
+    },
+    {
+        "provider": "nacva",
+        "name": "NACVA"
+    },
+    {
+        "provider": "ncma",
+        "name": "NCMA"
+    },
+    {
+        "provider": "network",
+        "name": "Network"
+    },
+    {
+        "provider": "network-appliance",
+        "name": "Network Appliance"
+    },
+    {
+        "provider": "ni",
+        "name": "NI"
+    },
+    {
+        "provider": "novell",
+        "name": "Novell"
+    },
+    {
+        "provider": "oracle",
+        "name": "Oracle"
+    },
+    {
+        "provider": "palo-alto-networks",
+        "name": "Palo Alto Networks"
+    },
+    {
+        "provider": "pegasystems",
+        "name": "Pegasystems"
+    },
+    {
+        "provider": "peoplecert",
+        "name": "PEOPLECERT"
+    },
+    {
+        "provider": "pmi",
+        "name": "PMI"
+    },
+    {
+        "provider": "prince2",
+        "name": "PRINCE2"
+    },
+    {
+        "provider": "python",
+        "name": "Python"
+    },
+    {
+        "provider": "qlikview",
+        "name": "QlikView"
+    },
+    {
+        "provider": "redhat",
+        "name": "RedHat"
+    },
+    {
+        "provider": "riverbed",
+        "name": "Riverbed"
+    },
+    {
+        "provider": "salesforce",
+        "name": "Salesforce"
+    },
+    {
+        "provider": "sans",
+        "name": "SANS"
+    },
+    {
+        "provider": "sap",
+        "name": "SAP"
+    },
+    {
+        "provider": "sas-institute",
+        "name": "SAS Institute"
+    },
+    {
+        "provider": "six-sigma",
+        "name": "Six Sigma"
+    },
+    {
+        "provider": "snia",
+        "name": "SNIA"
+    },
+    {
+        "provider": "soa",
+        "name": "SOA"
+    },
+    {
+        "provider": "solarwinds",
+        "name": "SolarWinds"
+    },
+    {
+        "provider": "splunk",
+        "name": "Splunk"
+    },
+    {
+        "provider": "symantec",
+        "name": "Symantec"
+    },
+    {
+        "provider": "test",
+        "name": "Test"
+    },
+    {
+        "provider": "the-open-group",
+        "name": "The Open Group"
+    },
+    {
+        "provider": "tibco",
+        "name": "Tibco"
+    },
+    {
+        "provider": "veeam",
+        "name": "Veeam"
+    },
+    {
+        "provider": "veritas",
+        "name": "Veritas"
+    },
+    {
+        "provider": "vmware",
+        "name": "VMware"
+    },
+    {
+        "provider": "watchguard",
+        "name": "WatchGuard"
+    },
+    {
+        "provider": "zend",
+        "name": "Zend"
+    }
+]

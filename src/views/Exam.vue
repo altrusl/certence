@@ -22,134 +22,146 @@
 				>
 			</div>
 		</header>
+		<loading-animation :loadingStatus="isLoading" />
 
-		<div class="desk" v-if="!isLoading">
-			<h2 class="title">{{ examData.certTitle }}</h2>
-			<!-- <p class="provider">{{ examData.certProvider }}</p> -->
+		<transition name="fade">
+			<div class="desk" v-if="!isLoading">
+				<h2 class="title">{{ examData.certTitle }}</h2>
+				<!-- <p class="provider">{{ examData.certProvider }}</p> -->
 
-			<div class="subtitle">
-				<div class="question-navigation">
-					<button
-						@click="previousQuestion"
-						:class="{
-							inactive: this.currentQuestionIndex == 0
-						}"
-					>
-						&lt;&lt;
-					</button>
-					<p v-if="question">
-						question #{{
-							question.questionTopicNumber +
-								"." +
-								question.questionNumber
-						}}
-						({{ currentQuestionIndex + 1 }} out of
-						{{ filteredQuestions.length }})
-					</p>
-					<button
-						@click="nextQuestion"
-						:class="{
-							inactive:
-								this.currentQuestionIndex >
-								this.filteredQuestions.length - 2
-						}"
-					>
-						&gt;&gt;
-					</button>
-				</div>
-
-				<div class="filter-tags">
-					<label>Filter by:</label>
-					<multiselect
-						v-model="filterTags"
-						placeholder="tags"
-						:options="filterAllTags"
-						:multiple="true"
-						:show-labels="false"
-						@close="checkForUntaggedTag"
-					></multiselect>
-				</div>
-			</div>
-
-			<transition name="fade">
-				<div class="container" v-if="question && transitionSwitcher">
-					<div class="question-section" :question-id="question.id">
-						<div v-html="question.questionText"></div>
-						<ul class="answers">
-							<li
-								v-for="answer in question.questionAnswers"
-								:key="answer.letter"
-								:class="{
-									selected:
-										showCorrectAnswer && answer.isCorrect
-								}"
-							>
-								<div class="answer">
-									<div class="answer-letter">
-										{{ answer.letter }}
-									</div>
-									<div class="answer-text">
-										{{ answer.text }}
-									</div>
-								</div>
-							</li>
-						</ul>
-
-						<div
-							class="correct-answer"
-							v-if="
-								showCorrectAnswer &&
-									question.correctAnswer.includes('img')
-							"
-							v-html="question.correctAnswer"
-						></div>
-
-						<div
-							class="correct-answer-desc"
-							v-if="showCorrectAnswer"
-							v-html="question.correctAnswerDesc"
-						></div>
-
-						<div class="question-footer">
-							<button
-								class="reveal-solution"
-								@click="showCorrectAnswer = !showCorrectAnswer"
-								:disabled="
-									!question.correctAnswerDesc &&
-										!question.questionAnswers.some(
-											answer => answer.isCorrect
-										)
-								"
-							>
-								Reveal solution
-							</button>
-
-							<multiselect
-								v-model="questionTags"
-								placeholder="Type a new tag name here.."
-								:options="allTags"
-								:multiple="true"
-								:taggable="true"
-								:show-labels="false"
-								@tag="addTag"
-							></multiselect>
-
-							<!-- <button @click="showDiscussion">Show dicussion</button> -->
-							<button
-								@click="nextQuestion"
-								:disabled="
+				<div class="subtitle">
+					<div class="question-navigation">
+						<button
+							@click="previousQuestion"
+							:class="{
+								inactive: this.currentQuestionIndex == 0
+							}"
+						>
+							&lt;&lt;
+						</button>
+						<p v-if="question">
+							question #{{
+								question.questionTopicNumber +
+									"." +
+									question.questionNumber
+							}}
+							({{ currentQuestionIndex + 1 }} out of
+							{{ filteredQuestions.length }})
+						</p>
+						<button
+							@click="nextQuestion"
+							:class="{
+								inactive:
 									this.currentQuestionIndex >
-										this.filteredQuestions.length - 2
-								"
-							>
-								Next question
-							</button>
-						</div>
+									this.filteredQuestions.length - 2
+							}"
+						>
+							&gt;&gt;
+						</button>
 					</div>
-					<notes-section ref="notes" :question="question" />
+
+					<div class="filter-tags">
+						<label>Filter by:</label>
+						<multiselect
+							v-model="filterTags"
+							placeholder="tags"
+							:options="filterAllTags"
+							:multiple="true"
+							:show-labels="false"
+							@close="checkForUntaggedTag"
+						></multiselect>
+					</div>
 				</div>
-			</transition>
-		</div>
+
+				<transition name="fade">
+					<div
+						class="container"
+						v-if="question && transitionSwitcher"
+					>
+						<div
+							class="question-section"
+							:question-id="question.id"
+						>
+							<div v-html="question.questionText"></div>
+							<ul class="answers">
+								<li
+									v-for="answer in question.questionAnswers"
+									:key="answer.letter"
+									:class="{
+										selected:
+											showCorrectAnswer &&
+											answer.isCorrect
+									}"
+								>
+									<div class="answer">
+										<div class="answer-letter">
+											{{ answer.letter }}
+										</div>
+										<div class="answer-text">
+											{{ answer.text }}
+										</div>
+									</div>
+								</li>
+							</ul>
+
+							<div
+								class="correct-answer"
+								v-if="
+									showCorrectAnswer &&
+										question.correctAnswer.includes('img')
+								"
+								v-html="question.correctAnswer"
+							></div>
+
+							<div
+								class="correct-answer-desc"
+								v-if="showCorrectAnswer"
+								v-html="question.correctAnswerDesc"
+							></div>
+
+							<div class="question-footer">
+								<button
+									class="reveal-solution"
+									@click="
+										showCorrectAnswer = !showCorrectAnswer
+									"
+									:disabled="
+										!question.correctAnswerDesc &&
+											!question.questionAnswers.some(
+												answer => answer.isCorrect
+											)
+									"
+								>
+									Reveal solution
+								</button>
+
+								<multiselect
+									v-model="questionTags"
+									placeholder="Type a new tag name here.."
+									:options="allTags"
+									:multiple="true"
+									:taggable="true"
+									:show-labels="false"
+									@tag="addTag"
+								></multiselect>
+
+								<!-- <button @click="showDiscussion">Show dicussion</button> -->
+								<button
+									@click="nextQuestion"
+									:disabled="
+										this.currentQuestionIndex >
+											this.filteredQuestions.length - 2
+									"
+								>
+									Next question
+								</button>
+							</div>
+						</div>
+						<notes-section ref="notes" :question="question" />
+					</div>
+				</transition>
+			</div>
+		</transition>
 		<footer class="footer">
 			<div class="logo">
 				<p>
@@ -181,12 +193,13 @@
 
 <script>
 import Vue from "vue";
+import LoadingAnimation from "@/components/LoadingAnimation.vue";
 import NotesSection from "@/components/NotesSection.vue";
 import HowItWorks from "@/components/HowItWorks";
 import UserPreferencesDialog from "@/components/UserPreferencesDialog.vue";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapState } from "vuex";
-import ModalWindow from "s:/src/Vuesence/modal-window/src/components/ModalWindow.vue";
+import ModalWindow from "@vuesence/modal-window";
 
 export default {
 	data() {
@@ -205,6 +218,7 @@ export default {
 	},
 	name: "Exam",
 	components: {
+		LoadingAnimation,
 		NotesSection,
 		HowItWorks,
 		Multiselect,
@@ -580,7 +594,7 @@ export default {
 .question-footer {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-end;
 	margin-top: 30px;
 	/* position: sticky; */
 	bottom: 0;
