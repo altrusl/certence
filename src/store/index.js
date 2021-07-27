@@ -76,7 +76,7 @@ export default new Vuex.Store({
 			provider,
 			exam
 		}) {
-			const url = "https://certence.club/certifications/" +
+			const url = "certifications/" +
 				provider + "/" + exam + "/data.json";
 			// const url = "/data.json";
 			return fetch(url).then(response => {

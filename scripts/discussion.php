@@ -23,7 +23,9 @@ if (!file_exists($discDir)) {
     chmod($discDir, 0777);
 }
 
-if (!file_exists($discDir . "/" . $_GET['id'] . '.json')) {
+$file = $discDir . "/" . $_GET['id'] . '.json';
+
+if (!file_exists($file) || filesize($file) < 10) {
     // include(__DIR__ . "/simple_html_dom.php");
     
     $url="https://www.examtopics.com/ajax/discussion/exam-question/" . $_GET['id'] . "/";
@@ -40,12 +42,13 @@ if (!file_exists($discDir . "/" . $_GET['id'] . '.json')) {
     // echo $data;
     // exit;
 
-    // $data = file_get_contents(__DIR__ . "/discussion.html");
+    // $data = file_get_contents(__DIR__ . "/discussion-example.html");
     
     // $data = file_get_html('https://www.examtopics.com/ajax/discussion/exam-question/442367/');
     // $data = str_get_html($data);
 
-    $cs = explode('<div class="media comment-container"', $data);
+    // $cs = explode('<div class="media comment-container"', $data);
+    $cs = explode('class="media comment-container"', $data);
 
     // preg_match('/comment-date(.*?)title="(.*?)">/sim', $cs[10], $matches);
     // print_r($matches);
@@ -89,6 +92,7 @@ function collectCommentDataRegExp($cc) {
     
     preg_match('/comment-content">(.*?)</sim', $cc, $matches);
     $data["text"] = str_replace("&#39;", "'", htmlspecialchars_decode(trim($matches[1])));
+    $data["text"] = str_replace("&#x27;", "'", $data["text"]);
     
     preg_match('/upvote-count">(.*?)</sim', $cc, $matches);
     $data["upvotes"] = trim($matches[1]);

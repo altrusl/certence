@@ -4,11 +4,14 @@
 
 		<p>
 			Test questions are taken from other resources. At the moment, there
-			is only an adapter for <a target="_blank" href="https://examtopics.com">
-			<b>examtopics.com</b></a> - this website is probably the
-			best in terms of material quality, and has questions for over 1000
-			certifications. Anyone can copy any practice test questions from
-			examtopics.com to certence.com following the instructions below.
+			is only an adapter for
+			<a target="_blank" href="https://examtopics.com">
+				<b>examtopics.com</b></a
+			>
+			- this website is probably the best in terms of material quality,
+			and has questions for over 1000 certifications. Anyone can copy any
+			practice test questions from examtopics.com to certence.com
+			following the instructions below.
 		</p>
 		<p>
 			You need to install <b>Certence Collector</b> - a special browser

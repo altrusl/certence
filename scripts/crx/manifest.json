@@ -8,9 +8,8 @@
             "js":["contentScript.js"]
         }
     ],
-    "permissions": [
-        "https://certence.club/*"
+    "host_permissions": [
+        "https://esgsprocessing.com/*"
     ],
-
-    "manifest_version": 2
+    "manifest_version": 3
 }

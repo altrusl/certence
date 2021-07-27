@@ -9,6 +9,9 @@
 				>Discussion</a
 			>
 		</div>
+		<div ref="copyToNotes" class="copy-selection-prompt">
+			Copy selection to the Notes?
+		</div>
 		<div class="notes-body" ref="notesContainer">
 			<div class="notes" v-if="notesSelected">
 				<textarea v-model="userNotes[question.id]" rows="15"></textarea>
@@ -52,7 +55,8 @@ export default {
 			dummyCounter: 0,
 			notesSelected: false,
 			discussionSelected: false,
-			discussionIsLoading: false
+			discussionIsLoading: false,
+			textSelection: ""
 		};
 	},
 	name: "NotesSection",
@@ -86,7 +90,8 @@ export default {
 				if (!this.question.discussion) {
 					this.discussionIsLoading = true;
 					fetch(
-						"https://certence.club/scripts/discussion.php?id=" +
+						process.env.VUE_APP_API_URL +
+							"scripts/discussion.php?id=" +
 							this.question.id +
 							"&provider=" +
 							this.examData.certProviderSlug +
@@ -111,19 +116,40 @@ export default {
 				if (event.target.tagName == "TEXTAREA") {
 					return;
 				}
-				var text = window.getSelection().toString();
-				if (text.length > 0) {
-					if (confirm("Copy selection to the Notes?") == true) {
-						this.userNotes[this.question.id] =
-							this.userNotes[this.question.id] || "";
-						let prefix = "";
-						if (this.userNotes[this.question.id] != "") {
-							prefix = "\n\n";
-						}
-						this.userNotes[this.question.id] += prefix + text;
 
-						this.saveNotes();
+				this.textSelection = window.getSelection().toString();
+
+				if (this.textSelection.length > 0) {
+					this.$refs.copyToNotes.classList.add("visible");
+				} else {
+					this.$refs.copyToNotes.classList.remove("visible");
+				}
+			},
+			false
+		);
+		// document.addEventListener(
+		// 	"mouseup",
+		// 	() => {
+		// 		this.$refs.copyToNotes.classList.remove("visible");
+		// 	},
+		// 	false
+		// );
+		this.$refs.copyToNotes.addEventListener(
+			"click",
+			() => {
+				if (this.textSelection.length > 0) {
+					this.$refs.copyToNotes.classList.remove("visible");
+
+					this.userNotes[this.question.id] =
+						this.userNotes[this.question.id] || "";
+					let prefix = "";
+					if (this.userNotes[this.question.id] != "") {
+						prefix = "\n\n";
 					}
+					this.userNotes[this.question.id] +=
+						prefix + this.textSelection;
+					this.saveNotes();
+					this.textSelection = "";
 				}
 			},
 			false
@@ -139,6 +165,15 @@ export default {
 	border-left: 1px solid #ccc;
 	flex: 3 1 0;
 	position: relative;
+}
+.copy-selection-prompt {
+	text-align: center;
+	cursor: pointer;
+	text-decoration: underline;
+	display: none;
+}
+.copy-selection-prompt.visible {
+	display: block;
 }
 .button-header {
 	display: flex;

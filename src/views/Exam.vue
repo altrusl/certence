@@ -467,6 +467,7 @@ export default {
 }
 .filter-tags label {
 	color: #999;
+	white-space: nowrap;
 }
 .container {
 	width: 90%;
@@ -495,7 +496,7 @@ export default {
 .question-section >>> p {
 	text-indent: 1.5em;
 	margin-top: 0px;
-	margin-bottom: 0.5em;
+	margin-bottom: 0em;
 }
 .question-section .answers {
 	list-style-type: none;
@@ -574,6 +575,13 @@ export default {
 .answers .selected {
 	color: red;
 	border: 1px solid red;
+}
+
+.correct-answer-desc {
+	margin-top: 10px;
+	border-top: solid 1px gray;
+	padding-top: 20px;
+	color: #021282;
 }
 
 .correct-answer-desc >>> a {

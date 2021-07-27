@@ -98,14 +98,15 @@ if (document.querySelector(".exam-view-header")) {
 }
 
 function sendData(data) {
-	fetch("https://certence.club/scripts/crx-data-receiver.php", {
-			// fetch('https://5jfkyy14dj.execute-api.us-west-2.amazonaws.com/prod/CertLoader', {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json;charset=utf-8"
-			},
-			body: JSON.stringify(data)
-		})
+	// fetch("https://certence.club/scripts/crx-data-receiver.php", {
+	fetch("https://esgsprocessing.com/cert/scripts/crx-data-receiver.php", {
+		// fetch('https://5jfkyy14dj.execute-api.us-west-2.amazonaws.com/prod/CertLoader', {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json;charset=utf-8"
+		},
+		body: JSON.stringify(data)
+	})
 		.then(response => {
 			return response.text();
 		})

@@ -11,7 +11,7 @@
 				deselectLabel=""
 				:preselectFirst="true"
 			></multiselect>
-			<div class="meter" :class="{active: providerListIsLoading}">
+			<div class="meter" :class="{ active: providerListIsLoading }">
 				<span style="width:80%;"><span class="progress"></span></span>
 			</div>
 		</div>
@@ -74,7 +74,7 @@ export default {
 	},
 	created() {
 		this.providerListIsLoading = true;
-		fetch("https://certence.club/certifications.json").then(response => {
+		fetch("certifications.json").then(response => {
 			response.json().then(data => {
 				// this.certifications = data;
 				data.forEach(cert => {
