@@ -40,7 +40,7 @@
 							&lt;&lt;
 						</button>
 						<p v-if="question">
-							question #{{
+							q #{{
 								question.questionTopicNumber +
 									"." +
 									question.questionNumber
@@ -58,6 +58,7 @@
 						>
 							&gt;&gt;
 						</button>
+						<div @click="notesVisible = true">D</div>
 					</div>
 
 					<div class="filter-tags">
@@ -157,7 +158,12 @@
 								</button>
 							</div>
 						</div>
-						<notes-section ref="notes" :question="question" />
+						<notes-section
+							ref="notes"
+							:question="question"
+							:class="{ visible: notesVisible }"
+							@close="notesVisible = false"
+						/>
 					</div>
 				</transition>
 			</div>
@@ -213,7 +219,8 @@ export default {
 			allTags: ["Easy", "Complex", "Intricate"],
 			selectedTags: [],
 			filterTags: [],
-			filteredQuestions: []
+			filteredQuestions: [],
+			notesVisible: false
 		};
 	},
 	name: "Exam",
@@ -451,6 +458,7 @@ export default {
 	padding: 20px 0 40px;
 	display: flex;
 	justify-content: space-between;
+	display: flex;
 }
 .subtitle .provider {
 	font-size: 1.3em;
@@ -746,5 +754,45 @@ export default {
 .multiselect__tag-icon:focus,
 .multiselect__tag-icon:hover {
 	background: #444;
+}
+</style>
+
+<style scoped>
+@media (max-width: 430px) {
+	.subtitle {
+		flex-direction: column;
+		padding: 10px 0;
+	}
+	.desk {
+		max-width: 100%;
+		width: 100%;
+	}
+	.container {
+		width: 100%;
+		max-width: 100%;
+		margin: 10px;
+	}
+	.notes-section {
+		display: none;
+	}
+	.notes-section.visible {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background-color: white;
+	}
+	.title {
+		margin: 0 10px;
+		line-height: 1;
+		font-size: 1.3em;
+		/* width: 100%; */
+	}
+	.question-navigation p {
+		font-size: 0.9em;
+		margin: 5px 0 5px;
+	}
 }
 </style>

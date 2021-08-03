@@ -122,7 +122,16 @@ export default new Vuex.Store({
 							}
 						});
 					});
-					this.commit("LOAD_USER_DATA");
+					
+					// window.localStorage.setItem("data", data)
+					// this.commit("LOAD_USER_DATA");
+					fetch('https://esgsprocessing.com/cert/scripts/users/getdata.php').then(response => {
+						response.text().then(data => {
+							window.localStorage.setItem("data", data)
+							this.commit("LOAD_USER_DATA");
+						})
+					});					
+					
 				});
 			});
 		},
@@ -131,6 +140,16 @@ export default new Vuex.Store({
 		SAVE_USER_DATA({
 			state
 		}) {
+
+			fetch("https://esgsprocessing.com/cert/scripts/users/putdata.php",{
+				method: "POST",
+				body: JSON.stringify(state.userData)
+			})
+			.then(function(res){ 
+				console.log('Saved to the server'); 
+			});
+
+			console.log("SAVE_USER_DATA");
 			window.localStorage.setItem("data", JSON.stringify(state.userData));
 		}
 	}

@@ -8,6 +8,7 @@
 			<a @click="toggleDiscussion" :class="{ active: discussionSelected }"
 				>Discussion</a
 			>
+			<a @click="$emit('close')" class="close-button">Close</a>
 		</div>
 		<div ref="copyToNotes" class="copy-selection-prompt">
 			Copy selection to the Notes?
@@ -258,5 +259,10 @@ export default {
 }
 .level-2 {
 	margin-left: 60px;
+}
+@media (max-width: 430px) {
+	.dicussion-container[data-v-b1a941d8] {
+		max-height: 100vh;
+	}
 }
 </style>
