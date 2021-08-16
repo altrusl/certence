@@ -250,7 +250,7 @@ export default {
 .text {
 	color: #111;
 	padding-top: 10px;
-	font-size: 0.8em;
+	font-size: 0.9em;
 	line-height: 1.4;
 	overflow-wrap: anywhere;
 }
@@ -263,6 +263,9 @@ export default {
 @media (max-width: 430px) {
 	.dicussion-container[data-v-b1a941d8] {
 		max-height: 100vh;
+	}
+	.notes-section {
+		padding-top: 20px;
 	}
 }
 </style>

@@ -6,10 +6,10 @@
 		<header class="topbar">
 			<div class="logo">
 				<p>
-					Certfication provider
-					<span v-if="!isLoading">
-						/ {{ examData.certProvider }}</span
-					>
+					<span class="cert-provider-title"
+						>Certfication provider /
+					</span>
+					<span v-if="!isLoading"> {{ examData.certProvider }}</span>
 				</p>
 			</div>
 			<div>
@@ -31,6 +31,14 @@
 
 				<div class="subtitle">
 					<div class="question-navigation">
+						<select @change="setQuestion($event)">
+							<option
+								v-for="index in 457"
+								:value="index"
+								:key="index"
+								>{{ index }}</option
+							>
+						</select>
 						<button
 							@click="previousQuestion"
 							:class="{
@@ -45,8 +53,9 @@
 									"." +
 									question.questionNumber
 							}}
-							({{ currentQuestionIndex + 1 }} out of
-							{{ filteredQuestions.length }})
+							({{ currentQuestionIndex + 1 }}/{{
+								filteredQuestions.length
+							}})
 						</p>
 						<button
 							@click="nextQuestion"
@@ -58,7 +67,12 @@
 						>
 							&gt;&gt;
 						</button>
-						<div @click="notesVisible = true">D</div>
+						<div
+							class="open-discuttion-button"
+							@click="notesVisible = true"
+						>
+							D
+						</div>
 					</div>
 
 					<div class="filter-tags">
@@ -284,6 +298,12 @@ export default {
 				this.initDesk();
 			}
 		},
+		setQuestion(event) {
+			this.$store.commit("SET_CQID", {
+				cqid: +event.target.value - 1
+			});
+			this.initDesk();
+		},
 		initDesk() {
 			this.transitionSwitcher = false;
 			this.showCorrectAnswer = false;
@@ -488,6 +508,8 @@ export default {
 	flex: 5 1 0;
 	display: flex;
 	flex-direction: column;
+	max-width: 100vw;
+	overflow-x: hidden;
 }
 .question-section::-webkit-scrollbar {
 	width: 7px;
@@ -759,7 +781,21 @@ export default {
 
 <style scoped>
 @media (max-width: 430px) {
+	.topbar {
+		margin-bottom: 5px;
+	}
+	.topbar .logo p .cert-provider-title {
+		display: none;
+	}
+
+	.title {
+		margin: 0 10px;
+		line-height: 1.1;
+		font-size: 1.2em;
+		/* width: 100%; */
+	}
 	.subtitle {
+		width: 90%;
 		flex-direction: column;
 		padding: 10px 0;
 	}
@@ -784,15 +820,15 @@ export default {
 		right: 0;
 		background-color: white;
 	}
-	.title {
-		margin: 0 10px;
-		line-height: 1;
-		font-size: 1.3em;
-		/* width: 100%; */
-	}
 	.question-navigation p {
 		font-size: 0.9em;
 		margin: 5px 0 5px;
+	}
+	.open-discuttion-button {
+		margin-left: 30px;
+	}
+	.question-section {
+		font-size: 1.1em;
 	}
 }
 </style>
