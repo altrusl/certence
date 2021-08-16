@@ -7,41 +7,44 @@
 
 $ids = [];
 
-// for ($id=690441; $id < 690891; $id++) { 
-for ($id=690891; $id < 690920; $id++) { 
+for ($id=690441; $id < 690898; $id++) { 
+// for ($id=690891; $id < 690920; $id++) { 
 // for ($id=690645; $id < 690647; $id++) { 
 
-    // if(file_exists(__DIR__ . "/discussions/short/$id.html")) {
-    //     return;
-    // }
+    if(file_exists(__DIR__ . "/discussions/short/$id.html")) {
+        $data = file_get_contents(__DIR__ . "/discussions/short/$id.html");
+    } else {
+        
+        $url="https://www.examtopics.com/ajax/discussion/exam-question/" . $id . "/";
+        $agent= 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $data = curl_exec($ch);
+
+    }
     
-    $url="https://www.examtopics.com/ajax/discussion/exam-question/" . $id . "/";
-    $agent= 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    // curl_setopt($ch, CURLOPT_VERBOSE, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, $agent);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    $data = curl_exec($ch);
-
     // echo $data;
 
     $start = strpos($data, 'data-discussion-id') + 20;
 
     // echo substr($data, 0, 500);
-    file_put_contents(__DIR__ . "/discussions/short/$id.html", $data);
+    // file_put_contents(__DIR__ . "/discussions/short/$id.html", $data);
+    
     $ids[$id] = substr($data, $start, 5);
     echo $id . "-" . $ids[$id] . "\n";
-    if (!is_numeric($ids[$id])) {
-        sleep(20);
-        $id--;
-        continue;
-    } else {
-        sleep(5);
-        loadFullDiscussion($ids[$id], $id);
-    }    
+    // if (!is_numeric($ids[$id])) {
+    //     sleep(20);
+    //     $id--;
+    //     continue;
+    // } else {
+    //     sleep(5);
+    //     loadFullDiscussion($ids[$id], $id);
+    // }    
     // echo $id . "\n";
 }
 
