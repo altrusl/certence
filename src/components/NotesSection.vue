@@ -38,7 +38,7 @@
 									>↑ {{ item.upvotes }}</span
 								>
 							</div>
-							<div class="text">{{ item.text }}</div>
+							<div class="text" v-html="item.text"></div>
 						</li>
 					</ul>
 				</div>
@@ -100,6 +100,16 @@ export default {
 							this.examData.examSlug
 					).then(response => {
 						response.json().then(data => {
+							data = data.map(comment => {
+								return {
+									...comment,
+									text: comment.text.replaceAll(
+										"\n",
+										"<br />"
+									)
+								};
+							});
+							console.log(data);
 							this.$parent.setDiscussion(data);
 							this.$forceUpdate();
 							this.discussionIsLoading = false;
