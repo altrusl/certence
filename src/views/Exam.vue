@@ -33,7 +33,7 @@
 					<div class="question-navigation">
 						<select @change="setQuestion($event)">
 							<option
-								v-for="index in 457"
+								v-for="index in filteredQuestions.length"
 								:value="index"
 								:key="index"
 								>{{ index }}</option
@@ -147,7 +147,7 @@
 											)
 									"
 								>
-									Reveal solution
+									Solution
 								</button>
 
 								<multiselect
@@ -161,15 +161,26 @@
 								></multiselect>
 
 								<!-- <button @click="showDiscussion">Show dicussion</button> -->
-								<button
-									@click="nextQuestion"
-									:disabled="
-										this.currentQuestionIndex >
-											this.filteredQuestions.length - 2
-									"
-								>
-									Next question
-								</button>
+								<div class="nav">
+									<button
+										@click="previousQuestion"
+										:disabled="
+											this.currentQuestionIndex == 0
+										"
+									>
+										Prev
+									</button>
+									<button
+										@click="nextQuestion"
+										:disabled="
+											this.currentQuestionIndex >
+												this.filteredQuestions.length -
+													2
+										"
+									>
+										Next
+									</button>
+								</div>
 							</div>
 						</div>
 						<notes-section
@@ -230,7 +241,7 @@ export default {
 			howItWorksOpen: false,
 			transitionSwitcher: true,
 			showCorrectAnswer: false,
-			allTags: ["Easy", "Complex", "Intricate"],
+			allTags: ["Easy", "Complex", "Intricate", "Actual"],
 			selectedTags: [],
 			filterTags: [],
 			filteredQuestions: [],
@@ -638,6 +649,10 @@ export default {
 	bottom: 0;
 	background-color: white;
 }
+.question-footer .nav {
+	display: flex;
+	flex-direction: row;
+}
 
 .question-footer button {
 	border: none;
@@ -653,6 +668,7 @@ export default {
 	display: inline-block;
 	transition: all 0.3s ease 0s;
 	cursor: pointer;
+	margin: 0 5px 0 0;
 }
 
 .question-footer button:hover {
