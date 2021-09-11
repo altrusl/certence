@@ -109,7 +109,6 @@ export default {
 									)
 								};
 							});
-							console.log(data);
 							this.$parent.setDiscussion(data);
 							this.$forceUpdate();
 							this.discussionIsLoading = false;
